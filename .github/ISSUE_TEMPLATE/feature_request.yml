@@ -1,0 +1,22 @@
+name: ✨ Feature request
+description: Suggest a new component or improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: How would you like the API to look?
+      render: python
+      placeholder: ui.date_range("Period")
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd like to implement this myself

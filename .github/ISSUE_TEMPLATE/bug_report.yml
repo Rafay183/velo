@@ -1,0 +1,36 @@
+name: 🐛 Bug report
+description: Something isn't working
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Minimal code to reproduce
+      render: python
+      placeholder: |
+        import velo
+        app = velo.App("bug")
+        @app.page("/")
+        def home(ui):
+            ...
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Error / traceback / browser console output
+      render: text
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "velo 0.1.0, Python 3.12, Windows 11, Chrome 130"
+    validations:
+      required: true
