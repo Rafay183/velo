@@ -238,7 +238,11 @@ class Reloader(threading.Thread):
         n = len(core._APPS)
         SUPPRESS_RUN = True
         try:
-            runpy.run_path(self.main, run_name="__velo__")
+            if self.main.endswith(".json"):  # a no-code app from Velo Studio
+                from . import spec as _spec
+                _spec.load(self.main)
+            else:
+                runpy.run_path(self.main, run_name="__velo__")
         except Exception:
             tb = traceback.format_exc()
             print(f"\n  \033[31m✗ reload failed\033[0m\n{tb}")

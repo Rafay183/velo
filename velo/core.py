@@ -258,6 +258,7 @@ class Session:
         self.lock = threading.RLock()
         self.last_seen = time.time()
         self.path = "/"
+        self.pending_nav: str | None = None
 
 
 class _Ctx:
@@ -359,7 +360,16 @@ class UI:
         raise Rerun()
 
     def navigate(self, path: str):
+        """Go to another page. Works in the page body *and* inside on_click callbacks."""
         self._navigate = path
+        self._s.pending_nav = path
+
+    def reset(self, *keys: str):
+        """Reset widgets (by ``key=``) to their defaults. No keys: reset every widget on the session."""
+        if not keys:
+            self._s.values.clear()
+        for k in keys:
+            self._s.values.pop(f"k:{k}", None)
 
     def autorefresh(self, seconds: float):
         """Re-run this page every ``seconds`` while it is open (live dashboards)."""
@@ -864,6 +874,7 @@ class App:
 
             s.callbacks, s.widgets = ui._callbacks, ui._widgets
             toasts, s.toasts = s.toasts, []
+            nav, s.pending_nav = s.pending_nav, None
             return {
                 "tree": [c.to_json() for c in ui._root.c],
                 "side": [c.to_json() for c in ui._side.c],
@@ -873,7 +884,7 @@ class App:
                 "page": page["title"] if page and len(self.pages) > 1 else None,
                 "toasts": toasts,
                 "refresh": ui._refresh,
-                "navigate": ui._navigate,
+                "navigate": nav if nav and nav != path else None,
             }
 
     # ---- running ---------------------------------------------------------

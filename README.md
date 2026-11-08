@@ -6,9 +6,21 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](#)
 
-**Beautiful, reactive Python web apps in minutes. Zero dependencies.**
+**Beautiful, reactive Python web apps in minutes, by drag & drop or in code. Zero dependencies.**
 
-Velo lets anyone turn a Python script into a polished web app, with dashboards, forms, data tools and chat UIs. It runs on your laptop and deploys anywhere with one command. The whole framework is about 140 KB of pure-stdlib Python plus a 16 KB (gzipped) client.
+Velo lets anyone build a polished web app (dashboards, forms, data tools, chat UIs) two ways:
+
+* **No code:** `velo studio` opens a drag & drop builder. Drop components on a canvas, wire buttons to actions, compute values with spreadsheet-style formulas, and watch the real app update live beside it.
+* **Python:** write a page function with `ui.input(...)`, `ui.chart(...)` and friends.
+
+The two meet in the middle: any Studio app **exports to clean Python** in one click, and Python developers can plug their own functions into Studio buttons. It runs on your laptop and deploys anywhere with one command, all in pure-stdlib Python.
+
+```bash
+pip install velo-ui
+velo studio            # drag & drop builder → http://localhost:7860
+```
+
+![Velo Studio](docs/studio.png)
 
 ```python
 import velo
@@ -34,6 +46,73 @@ python app.py          # or:  velo run app.py
 
 ---
 
+## 🎨 Velo Studio: build apps without code
+
+```bash
+velo studio                         # edits ./app.velo.json (created if missing)
+velo studio sales.velo.json -t dashboard   # start from a template
+velo run app.velo.json              # run it like any Velo app (hot reload included)
+velo export app.velo.json           # eject to plain Python: app.py
+```
+
+![Studio split view](docs/studio-split.png)
+
+**What you get**
+
+| | |
+|---|---|
+| **Drag & drop canvas** | 38 components in 6 groups: text, inputs, buttons, tables, charts, chat, columns, cards, tabs, expanders, sidebar. Drop inside containers, reorder, duplicate. Click to add works too (touch friendly). |
+| **Inspector** | Edit every property. Inputs are **variables**: `{name}` shows one in text, `=price * qty` computes a value, just like a spreadsheet. |
+| **Actions without code** | Buttons run steps top to bottom: set a variable, add to a list, flip a switch, reset inputs, show a message, go to a page, or call a Python function, each with an optional *only if* condition. |
+| **Show if** | Any component can appear only when a formula is true (`agree`, `len(entries) > 0`). |
+| **Live preview** | The real app runs next to the canvas (Split view) and hot-swaps on every edit without losing what you typed. Desktop and mobile frames. |
+| **Code view & export** | See the exact Python your app equals, copy it, or download `app.py`. It's ordinary Velo code. |
+| **Safety nets** | Autosave, unlimited undo/redo, validation (unknown variables, typos in formulas, duplicate names) with one-click jump to the problem, and rename-refactor: rename a variable and every `{reference}` follows. |
+| **Templates** | Hello world, Dashboard (multi-page, filters, KPIs), Form + table with CSV export, Data explorer (upload a CSV, pick columns), Chatbot, Loan calculator. |
+
+**Formulas, in one minute.** They're Python expressions run in a safe sandbox (no imports, no file or network access):
+
+```text
+Hello {name}!                        text with a variable
+Total: {price * qty:,.2f}            compute + format → 1,234.50
+=count + 1                           a whole computed value
+=csv(file)                           rows from an uploaded CSV
+=where(rows, 'city', city)           filter rows · =group(rows, 'month', 'sales') group & sum
+=sum(col(rows, 'sales'))             totals · mean() min() max() len() round() sorted()
+='Pro' if score > 90 else 'Free'     conditions · list comprehensions work too
+```
+
+**Mix in Python whenever you want.** Set *Hooks file* to `hooks.py` in **App & Data**, then:
+
+```python
+# hooks.py — plain Python, any library you like
+def send_welcome(ctx):                 # a button action: "Run Python hook → send_welcome"
+    ctx.toast(f"Email sent to {ctx['email']} ✉️", "success")
+    ctx.set("sent", True)
+
+def ask_ai(ctx, message):              # a chat component's hook: return the reply
+    return my_llm(message, history=ctx["chat"])
+```
+
+Or load a Studio app from Python and keep going:
+
+```python
+import velo
+app = velo.load("app.velo.json")
+
+@app.action("send_welcome")            # same as a hooks.py function
+def send_welcome(ctx): ...
+
+@app.page("/admin")                    # hand-written pages live next to Studio pages
+def admin(ui): ui.title("Admin")
+
+app.run()
+```
+
+The `.velo.json` file is plain, diff-friendly JSON, so it belongs in git and code review like any source file. Full reference: [docs/STUDIO.md](docs/STUDIO.md).
+
+---
+
 ## Why Velo?
 
 | | **Velo** | Typical script-rerun frameworks |
@@ -49,6 +128,7 @@ python app.py          # or:  velo run app.py
 | Live push from Python | `app.push()` from any thread (SSE) | Limited |
 | Deploy | `velo docker` (vendors itself), honours `$PORT` | Extra setup |
 | Theme | Light and dark with a toggle; one accent colour themes everything | Config files |
+| No-code builder | **`velo studio`**: drag & drop, live preview, exports to Python | Code only |
 
 ---
 
@@ -159,7 +239,7 @@ ui.rerun(); ui.navigate("/other")
 
 ```bash
 velo run app.py --prod          # 0.0.0.0, no reload, no tracebacks, gzip on
-velo docker app.py              # writes Dockerfile and vendors velo
+velo docker app.py              # writes Dockerfile and vendors velo (works for app.velo.json too)
 docker build -t myapp . && docker run -p 8000:8000 myapp
 ```
 
@@ -169,7 +249,9 @@ Velo reads `$PORT` and `$VELO_HOST`, so the same app runs unchanged on Render, R
 
 | Command | What it does |
 |---|---|
-| `velo run app.py [--port N] [--host H] [--open] [--prod] [--no-reload]` | Run an app |
+| `velo studio [app.velo.json] [-t TEMPLATE] [--port N]` | Open the drag & drop builder |
+| `velo run app.py` or `velo run app.velo.json` `[--port N] [--host H] [--open] [--prod] [--no-reload]` | Run an app |
+| `velo export app.velo.json [-o app.py]` | Turn a Studio app into plain Python |
 | `velo new NAME` | Scaffold a starter app |
 | `velo docker [app.py] [--port N]` | Generate a Dockerfile and vendor Velo |
 | `velo version` | Print the version |
@@ -194,7 +276,7 @@ Pass `App(accent="#10b981", theme="dark", wide=True, icon="🚀")`, or override 
 ## Testing
 
 ```bash
-python -m pytest -q        # or: python tests/test_velo.py
+python -m pytest -q        # or: python tests/test_velo.py && python tests/test_studio.py
 ```
 
 ## Contributing

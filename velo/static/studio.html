@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Velo Studio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎨%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/_velo/app.css?v=__V__">
+<link rel="stylesheet" href="/_studio/studio.css?v=__V__">
+<script>window.STUDIO=__VELO_STUDIO_CFG__;(function(){var t;try{t=localStorage.getItem('velo-studio:theme')}catch(e){}
+t=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t;})()</script>
+</head>
+<body class="s-body">
+<header class="s-top">
+  <div class="s-logo"><span class="s-logo-ic">⚡</span><b>Velo</b><span class="s-logo-s">Studio</span></div>
+  <input id="s-app-title" class="s-title-in" spellcheck="false" aria-label="App title">
+  <div class="s-top-mid">
+    <button class="s-ib" id="s-undo" title="Undo (Ctrl+Z)">↶</button>
+    <button class="s-ib" id="s-redo" title="Redo (Ctrl+Shift+Z)">↷</button>
+    <div class="s-seg" id="s-view" role="tablist">
+      <button data-view="design" class="on" title="Design (1)">✏️ Design</button>
+      <button data-view="split" title="Design + live preview (2)">◫ Split</button>
+      <button data-view="preview" title="Live preview (3)">▶ Preview</button>
+      <button data-view="code" title="Python code (4)">&lt;/&gt; Code</button>
+    </div>
+    <div class="s-seg s-dev" id="s-device">
+      <button data-dev="desktop" class="on" title="Desktop">🖥️</button>
+      <button data-dev="mobile" title="Mobile">📱</button>
+    </div>
+  </div>
+  <div class="s-top-r">
+    <button class="s-problems" id="s-problems" hidden></button>
+    <span class="s-save" id="s-save">Saved</span>
+    <button class="s-btn" id="s-templates">✨ Templates</button>
+    <div class="s-menu-w">
+      <button class="s-btn primary" id="s-export">Export ▾</button>
+      <div class="s-menu" id="s-export-menu" hidden>
+        <a href="/api/export.py" download="app.py">🐍 Download Python (app.py)</a>
+        <a href="/api/export.json" id="s-dl-json" download>📄 Download app spec (.velo.json)</a>
+        <button id="s-import">📥 Import a .velo.json…</button>
+        <button id="s-open-preview">↗ Open preview in new tab</button>
+        <input type="file" id="s-import-file" accept=".json,application/json" hidden>
+      </div>
+    </div>
+    <button class="s-ib" id="s-theme" title="Toggle theme">◐</button>
+  </div>
+</header>
+
+<div class="s-main" id="s-main" data-view="design">
+  <aside class="s-left">
+    <div class="s-tabs" id="s-left-tabs">
+      <button data-tab="components" class="on">Components</button>
+      <button data-tab="pages">Pages</button>
+      <button data-tab="app">App &amp; Data</button>
+    </div>
+    <div class="s-pane on" data-pane="components">
+      <input class="s-search" id="s-search" placeholder="Search components…  ( / )" autocomplete="off">
+      <div id="s-palette"></div>
+      <p class="s-tip">Drag onto the canvas — or click to add after the selected item.</p>
+    </div>
+    <div class="s-pane" data-pane="pages"><div id="s-pages"></div></div>
+    <div class="s-pane" data-pane="app"><div id="s-appset"></div></div>
+  </aside>
+
+  <section class="s-center">
+    <div class="s-canvas-wrap" id="s-canvas-wrap"><div class="s-canvas" id="s-canvas"></div></div>
+    <div class="s-preview-wrap" id="s-preview-wrap">
+      <div class="s-preview-bar"><span class="s-dot"></span><span id="s-preview-url"></span>
+        <button class="s-ib" id="s-preview-reload" title="Reload preview">⟳</button></div>
+      <iframe id="s-preview" title="Live preview"></iframe>
+    </div>
+    <div class="s-code-wrap" id="s-code-wrap">
+      <div class="s-code-bar"><b>app.py</b><span class="s-muted">— plain Velo Python. Eject anytime: it runs on its own.</span>
+        <span class="s-grow"></span><button class="s-btn" id="s-code-copy">Copy</button>
+        <a class="s-btn primary" href="/api/export.py" download="app.py">Download</a></div>
+      <pre id="s-code"></pre>
+    </div>
+  </section>
+
+  <aside class="s-right" id="s-inspector"></aside>
+</div>
+
+<div class="s-modal" id="s-modal" hidden><div class="s-modal-box" id="s-modal-box"></div></div>
+<div id="v-toasts"></div>
+<script src="/_studio/studio.js?v=__V__" defer></script>
+</body>
+</html>
