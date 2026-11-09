@@ -13,6 +13,13 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python: ["3.9", "3.11", "3.13"]
+        exclude:
+          # ubuntu-latest (26.04+) has no Python 3.9 builds (3.9 is end-of-life)
+          - os: ubuntu-latest
+            python: "3.9"
+        include:
+          - os: ubuntu-24.04
+            python: "3.9"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,8 +28,14 @@ jobs:
       - name: Install
         run: pip install -e .
       - name: Run tests
-        run: python tests/test_velo.py
+        run: |
+          python tests/test_velo.py
+          python tests/test_studio.py
       - name: CLI smoke test
         run: |
           velo version
           velo new smoke_app
+          velo export --help
+          python -c "import velo, velo.templates as T, velo.spec as S; [S.write_spec(n + '.velo.json', T.get(n)) for n in T.TEMPLATES]"
+          velo export dashboard.velo.json -o dashboard_app.py
+          python -c "import runpy, velo.server as s; s.SUPPRESS_RUN = True; runpy.run_path('dashboard_app.py')"

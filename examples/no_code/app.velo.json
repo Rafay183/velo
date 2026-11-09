@@ -1,0 +1,286 @@
+{
+  "app": {
+    "title": "Registration",
+    "icon": "📝",
+    "accent": "#8b5cf6",
+    "theme": "auto",
+    "wide": false
+  },
+  "state": {
+    "entries": []
+  },
+  "pages": [
+    {
+      "path": "/",
+      "title": "Register",
+      "icon": "📝",
+      "body": [
+        {
+          "id": "n6ef0c5d4",
+          "type": "title",
+          "props": {
+            "text": "Workshop registration",
+            "subtitle": "{len(entries)} people registered so far"
+          }
+        },
+        {
+          "id": "n9622af7c",
+          "type": "columns",
+          "props": {
+            "widths": "3,2",
+            "gap": "md"
+          },
+          "slots": [
+            [
+              {
+                "id": "n17b4dfb2",
+                "type": "card",
+                "props": {
+                  "title": "Your details",
+                  "subtitle": ""
+                },
+                "slots": [
+                  [
+                    {
+                      "id": "n5dc18f29",
+                      "type": "input",
+                      "props": {
+                        "name": "full_name",
+                        "label": "Full name",
+                        "placeholder": "Ada Lovelace",
+                        "value": "",
+                        "itype": "text",
+                        "help": ""
+                      }
+                    },
+                    {
+                      "id": "n51a0f60e",
+                      "type": "input",
+                      "props": {
+                        "name": "email",
+                        "label": "Email",
+                        "placeholder": "ada@example.com",
+                        "value": "",
+                        "itype": "email",
+                        "help": ""
+                      }
+                    },
+                    {
+                      "id": "n16f07bcb",
+                      "type": "select",
+                      "props": {
+                        "name": "track",
+                        "label": "Track",
+                        "options": [
+                          "Python basics",
+                          "Data analysis",
+                          "Web apps"
+                        ],
+                        "value": "",
+                        "help": ""
+                      }
+                    },
+                    {
+                      "id": "naa44174c",
+                      "type": "slider",
+                      "props": {
+                        "name": "experience",
+                        "label": "Years of experience",
+                        "min": 0,
+                        "max": 20,
+                        "value": 2,
+                        "step": null,
+                        "suffix": "",
+                        "help": ""
+                      }
+                    },
+                    {
+                      "id": "nfb035ee7",
+                      "type": "checkbox",
+                      "props": {
+                        "name": "agree",
+                        "label": "I agree to the code of conduct",
+                        "value": false
+                      }
+                    },
+                    {
+                      "id": "n12492968",
+                      "type": "button",
+                      "props": {
+                        "label": "Register",
+                        "kind": "primary",
+                        "icon": "✅",
+                        "full": true,
+                        "actions": [
+                          {
+                            "do": "toast",
+                            "if": "not full_name or '@' not in email",
+                            "text": "Please enter your name and a valid email",
+                            "kind": "warning"
+                          },
+                          {
+                            "do": "toast",
+                            "if": "full_name and '@' in email and not agree",
+                            "text": "Please accept the code of conduct",
+                            "kind": "warning"
+                          },
+                          {
+                            "do": "append",
+                            "var": "entries",
+                            "if": "full_name and '@' in email and agree",
+                            "value": "={'name': full_name, 'email': email, 'track': track, 'experience': experience}"
+                          },
+                          {
+                            "do": "toast",
+                            "if": "full_name and '@' in email and agree",
+                            "text": "Welcome aboard, {full_name}! 🎉",
+                            "kind": "success"
+                          },
+                          {
+                            "do": "reset",
+                            "if": "full_name and '@' in email and agree",
+                            "vars": "full_name email agree"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "id": "n4de617d6",
+                "type": "metric",
+                "props": {
+                  "label": "Registrations",
+                  "value": "=len(entries)",
+                  "delta": "",
+                  "inverse": false,
+                  "help": ""
+                }
+              },
+              {
+                "id": "n7543bec1",
+                "type": "chart",
+                "props": {
+                  "kind": "pie",
+                  "data": "=group(entries, 'track')",
+                  "x": "track",
+                  "y": "count",
+                  "title": "By track",
+                  "height": 220,
+                  "stacked": false
+                }
+              }
+            ]
+          ]
+        },
+        {
+          "id": "n62f0f677",
+          "type": "card",
+          "props": {
+            "title": "Registered people",
+            "subtitle": ""
+          },
+          "slots": [
+            [
+              {
+                "id": "n7d21c43f",
+                "type": "table",
+                "props": {
+                  "data": "=entries",
+                  "page_size": 10,
+                  "search": true
+                }
+              },
+              {
+                "id": "ne7659de0",
+                "type": "row",
+                "props": {},
+                "slots": [
+                  [
+                    {
+                      "id": "n8e494970",
+                      "type": "download",
+                      "props": {
+                        "label": "Export CSV",
+                        "content": "=entries",
+                        "filename": "registrations.csv"
+                      }
+                    },
+                    {
+                      "id": "n536d7038",
+                      "type": "button",
+                      "props": {
+                        "label": "Email everyone",
+                        "kind": "secondary",
+                        "icon": "✉️",
+                        "full": false,
+                        "actions": [
+                          {
+                            "do": "call",
+                            "fn": "email_everyone"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "nf43f5b38",
+                      "type": "button",
+                      "props": {
+                        "label": "Clear all",
+                        "kind": "danger",
+                        "icon": "",
+                        "full": false,
+                        "actions": [
+                          {
+                            "do": "clear",
+                            "var": "entries"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                ]
+              }
+            ]
+          ],
+          "show_if": "len(entries) > 0"
+        }
+      ],
+      "id": "p1",
+      "sidebar": []
+    },
+    {
+      "path": "/help",
+      "title": "Help bot",
+      "icon": "💬",
+      "body": [
+        {
+          "id": "nb84df1b9",
+          "type": "title",
+          "props": {
+            "text": "Help bot",
+            "subtitle": "Replies come from a Python function in hooks.py"
+          }
+        },
+        {
+          "id": "n86755685",
+          "type": "chat",
+          "props": {
+            "name": "chat",
+            "placeholder": "Ask me anything…",
+            "greeting": "Ask me about the workshop 👋",
+            "reply": "You said: **{message}**",
+            "hook": "answer"
+          }
+        }
+      ],
+      "id": "p2",
+      "sidebar": []
+    }
+  ],
+  "velo": 1,
+  "hooks": "hooks.py"
+}

@@ -1,4 +1,4 @@
-"""velo command line: run · new · docker · version"""
+"""velo command line: studio · run · new · export · docker · version"""
 from __future__ import annotations
 
 import argparse
@@ -8,6 +8,14 @@ import shutil
 import sys
 
 from . import __version__
+
+
+def _rel(path: str) -> str:
+    """os.path.relpath that never fails (Windows raises across drives, e.g. C: vs D:)."""
+    try:
+        return os.path.relpath(path)
+    except ValueError:
+        return path
 
 TEMPLATE = '''import velo
 
@@ -52,6 +60,9 @@ def _load_app(path: str):
     path = os.path.abspath(path)
     if not os.path.isfile(path):
         raise SystemExit(f"velo: file not found: {path}")
+    if path.endswith(".json"):  # no-code app saved by Velo Studio
+        from . import spec
+        return spec.load(path), path
     sys.path.insert(0, os.path.dirname(path))
     n = len(core._APPS)
     server.SUPPRESS_RUN = True
@@ -83,6 +94,29 @@ def cmd_new(a):
     print(f"\n  ✓ Created {target}\n\n  cd {a.name}\n  velo run app.py\n")
 
 
+def cmd_studio(a):
+    from .studio import run_studio
+    from .templates import TEMPLATES
+    if a.template and a.template not in TEMPLATES:
+        raise SystemExit(f"velo: unknown template {a.template!r}. Choose from: {', '.join(TEMPLATES)}")
+    if a.template and os.path.exists(a.file) and not a.force:
+        raise SystemExit(f"velo: {a.file} exists — add --force to overwrite it with the {a.template!r} template")
+    run_studio(a.file, a.host, a.port, open_browser=not a.no_open, template=a.template)
+
+
+def cmd_export(a):
+    from . import codegen, spec
+    if not a.file.endswith(".json"):
+        raise SystemExit("velo export: expects a .velo.json file made with Velo Studio")
+    code = codegen.to_python(spec.read_spec(a.file))
+    out = a.output or os.path.join(os.path.dirname(os.path.abspath(a.file)), "app.py")
+    if os.path.exists(out) and not a.force:
+        raise SystemExit(f"velo export: {out} exists — add --force to overwrite")
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(code)
+    print(f"\n  ✓ Wrote {out}\n\n  python {_rel(out)}\n")
+
+
 def cmd_docker(a):
     root = os.path.dirname(os.path.abspath(a.file)) or "."
     pkg_src = os.path.dirname(os.path.abspath(__file__))
@@ -100,7 +134,10 @@ def cmd_docker(a):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(prog="velo", description="Velo — reactive Python web apps, zero dependencies.")
+    from . import _safe_console
+    _safe_console()
+    ap = argparse.ArgumentParser(prog="velo", description="Velo — reactive Python web apps, zero dependencies. "
+                                 "No code? Run: velo studio")
     sub = ap.add_subparsers(dest="cmd")
 
     r = sub.add_parser("run", help="run an app (hot reload in dev)")
@@ -115,6 +152,21 @@ def main(argv=None):
     n = sub.add_parser("new", help="scaffold a new app")
     n.add_argument("name")
     n.set_defaults(fn=cmd_new)
+
+    st = sub.add_parser("studio", help="open the drag & drop builder (no code needed)")
+    st.add_argument("file", nargs="?", default="app.velo.json", help="app spec to edit (created if missing)")
+    st.add_argument("--template", "-t", help="start from: blank, hello, dashboard, form, explorer, chatbot, calculator")
+    st.add_argument("--force", action="store_true", help="overwrite an existing file with --template")
+    st.add_argument("--host")
+    st.add_argument("--port", type=int)
+    st.add_argument("--no-open", action="store_true", help="don't open the browser")
+    st.set_defaults(fn=cmd_studio)
+
+    ex = sub.add_parser("export", help="turn a Studio app (.velo.json) into plain Python code")
+    ex.add_argument("file", nargs="?", default="app.velo.json")
+    ex.add_argument("-o", "--output", help="output file (default: app.py next to the spec)")
+    ex.add_argument("--force", action="store_true")
+    ex.set_defaults(fn=cmd_export)
 
     d = sub.add_parser("docker", help="generate a Dockerfile for deployment")
     d.add_argument("file", nargs="?", default="app.py")
