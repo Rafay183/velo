@@ -4,6 +4,18 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-09
+### Added
+- Complete documentation site in one file: `docs/index.html` (guides, Studio, formulas, Python API,
+  recipes, deploy, cheat sheets, FAQ). Publish it with GitHub Pages from `/docs`.
+- Author credit built in: every Velo app's HTML (comment + `generator` meta tags + footer tooltip),
+  the `X-Powered-By` header, Velo Studio, exported Python, `.velo.json` files and `velo version` name
+  Muhammad Rafay Shaikh (Pakistan). Available as `velo.__author__`, `velo.__country__`, `velo.CREDIT`.
+
+### Fixed
+- Windows: no crash printing ✓ ⚡ 🎨 on non-UTF-8 consoles; no `relpath` error across drives.
+- CI: Python 3.9 job runs on ubuntu-24.04 (ubuntu-latest no longer ships 3.9).
+
 ## [0.2.0] - 2026-11-09
 ### Added
 - **Velo Studio** (`velo studio`): a drag & drop builder with a component palette, nested drop zones,

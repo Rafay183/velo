@@ -196,6 +196,18 @@ def test_cli_run_accepts_json():
     assert "import velo" in open(os.path.join(d, "app.py"), encoding="utf-8").read()
 
 
+# ---------------------------------------------------------------- author credit
+def test_author_credit_everywhere():
+    assert velo.__author__ == "Muhammad Rafay Shaikh" and velo.__country__ == "Pakistan"
+    page = server._index(velo.App("X")).decode()
+    assert "Muhammad Rafay Shaikh" in page and "Pakistan" in page and 'name="generator"' in page
+    assert "Muhammad Rafay Shaikh" in codegen.to_python(T.get("blank"))
+    assert "Muhammad Rafay Shaikh" in S.normalize({})["generator"]
+    from velo import studio
+    html = studio._read_static("studio.html").decode()
+    assert "Muhammad Rafay Shaikh" in html and "Pakistan" in html
+
+
 # ---------------------------------------------------------------- studio server
 def test_studio_http_api():
     from velo import studio

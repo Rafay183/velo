@@ -20,6 +20,8 @@ pip install velo-ui
 velo studio            # drag & drop builder → http://localhost:7860
 ```
 
+📖 **Full documentation, guides and cheat sheets:** [rafay183.github.io/velo](https://rafay183.github.io/velo/) (source: [`docs/index.html`](docs/index.html))
+
 ![Velo Studio](docs/studio.png)
 
 ```python
@@ -283,4 +285,4 @@ python -m pytest -q        # or: python tests/test_velo.py && python tests/test_
 
 Contributions are very welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md), pick a **good first issue**, and say hi in Discussions. Please follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-MIT licensed. © 2026 Muhammad Rafay Shaikh
+MIT licensed. © 2026 **Muhammad Rafay Shaikh** · Pakistan 🇵🇰

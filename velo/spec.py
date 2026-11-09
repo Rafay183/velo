@@ -649,6 +649,8 @@ def normalize(spec: dict) -> dict:
     """Fill in defaults so every consumer can rely on the shape. Never mutates the input."""
     spec = copy.deepcopy(spec or {})
     spec.setdefault("velo", SPEC_VERSION)
+    from . import __author__, __country__
+    spec["generator"] = f"Velo Studio — by {__author__} ({__country__})"
     a = spec.setdefault("app", {})
     a.setdefault("title", "My Velo App")
     a.setdefault("icon", "⚡")
