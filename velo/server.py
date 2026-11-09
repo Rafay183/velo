@@ -17,7 +17,7 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
-from . import __version__
+from . import __version__, __author__, __country__, __homepage__
 from . import core
 
 SUPPRESS_RUN = False   # set while the CLI / reloader executes a user file
@@ -50,8 +50,12 @@ def _index(app: "core.App") -> bytes:
                       "title": app.title})
     t, ic = html.escape(app.title), html.escape(app.icon)
     return f"""<!doctype html>
+<!-- Built with Velo {__version__} · framework by {__author__} ({__country__}) · {__homepage__} -->
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generator" content="Velo {__version__} — {__author__}, {__country__}">
+<meta name="velo:framework-author" content="{__author__}">
+<meta name="velo:framework-country" content="{__country__}">
 <title>{t}</title>
 <link rel="icon" href="{_favicon(app.icon)}">
 <link rel="stylesheet" href="/_velo/app.css?v={__version__}">
@@ -65,7 +69,7 @@ document.documentElement.dataset.theme=t;document.documentElement.style.setPrope
     <div class="v-brand"><span class="v-logo">{ic}</span><span class="v-brand-t" id="v-brand-t">{t}</span></div>
     <nav id="v-nav"></nav>
     <div id="v-side-content" class="v-stack"></div>
-    <div class="v-side-foot">Built with <b>Velo</b></div>
+    <div class="v-side-foot" title="Velo — by {__author__} · {__country__}">Built with <a href="{__homepage__}" target="_blank" rel="noopener"><b>Velo</b></a></div>
   </aside>
   <div id="v-scrim"></div>
   <div id="v-body">
@@ -109,6 +113,7 @@ class _Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(payload)))
         self.send_header("Cache-Control", cache)
         self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("X-Powered-By", f"Velo/{__version__} ({__author__}, {__country__})")
         if use_gz:
             self.send_header("Content-Encoding", "gzip")
         self.end_headers()

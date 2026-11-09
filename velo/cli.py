@@ -7,7 +7,7 @@ import runpy
 import shutil
 import sys
 
-from . import __version__
+from . import __version__, CREDIT
 
 
 def _rel(path: str) -> str:
@@ -174,7 +174,7 @@ def main(argv=None):
     d.set_defaults(fn=cmd_docker)
 
     v = sub.add_parser("version")
-    v.set_defaults(fn=lambda a: print(f"velo {__version__}"))
+    v.set_defaults(fn=lambda a: print(f"velo {__version__}\n{CREDIT} · https://github.com/rafay183/velo"))
 
     a = ap.parse_args(argv)
     if not getattr(a, "fn", None):

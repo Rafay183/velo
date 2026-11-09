@@ -245,3 +245,5 @@
 .s-main[data-view=split] .s-canvas.no-side .s-side .s-zone{writing-mode:horizontal-tb;min-height:44px}
 .s-main[data-view=split] .s-canvas.no-side .s-side-h span{display:inline}
 .s-fx{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
+.s-logo{color:var(--text);text-decoration:none}
+.s-menu-foot{border-top:1px solid var(--border);margin:6px -6px -6px;padding:9px 12px;font-size:11.5px;color:var(--muted)}

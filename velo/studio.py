@@ -254,7 +254,8 @@ def run_studio(path: str = "app.velo.json", host: str | None = None, port: int |
     print(f"\n  \033[1m🎨 Velo Studio {__version__}\033[0m  ·  editing {_rel(project.path)}\n"
           f"  → Studio   \033[36m{url}\033[0m\n"
           f"  → Preview  \033[36mhttp://{shown}:{pport}\033[0m\n"
-          f"  Run it later with:  velo run {_rel(project.path)}     (Ctrl+C to stop)\n")
+          f"  Run it later with:  velo run {_rel(project.path)}     (Ctrl+C to stop)\n"
+          f"  \033[2mVelo by Muhammad Rafay Shaikh · Pakistan\033[0m\n")
     if open_browser:
         threading.Timer(0.6, lambda: webbrowser.open(url)).start()
     try:

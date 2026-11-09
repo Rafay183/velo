@@ -1,0 +1,1192 @@
+<!doctype html>
+<!-- Velo documentation · by Muhammad Rafay Shaikh (Pakistan) · https://github.com/rafay183/velo -->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Velo — Python web apps by drag &amp; drop or code · Documentation</title>
+<meta name="description" content="Velo: build beautiful Python web apps by drag & drop (Velo Studio) or in code. Zero dependencies. Complete guide, API reference and cheat sheets.">
+<meta name="author" content="Muhammad Rafay Shaikh">
+<meta name="generator" content="Velo docs — Muhammad Rafay Shaikh, Pakistan">
+<meta property="og:title" content="Velo — Python web apps by drag & drop or code">
+<meta property="og:description" content="pip install velo-ui · velo studio. Zero dependencies. Built by Muhammad Rafay Shaikh, Pakistan.">
+<meta property="og:image" content="https://raw.githubusercontent.com/rafay183/velo/main/docs/studio.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚡%3C/text%3E%3C/svg%3E">
+<script>(function(){var t;try{t=localStorage.getItem('velo-docs:theme')}catch(e){}t=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t})()</script>
+<style>
+:root{--bg:#f7f8fb;--panel:#fff;--panel2:#f1f3f8;--text:#14161f;--muted:#5d6475;--border:#e3e6ee;--accent:#6366f1;--accent2:#4f46e5;
+  --soft:rgba(99,102,241,.1);--ink:#4338ca;--good:#059669;--warn:#d97706;--bad:#dc2626;--code:#0f1220;--codetext:#e6e8f0;
+  --mono:ui-monospace,SFMono-Regular,"JetBrains Mono",Menlo,Consolas,monospace;--font:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r:14px;--shadow:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.06)}
+[data-theme=dark]{--bg:#0b0d14;--panel:#12151f;--panel2:#181c28;--text:#e8eaf2;--muted:#959cb0;--border:#252a3a;--soft:rgba(129,140,248,.14);--ink:#a5b4fc;--code:#0a0c13}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--text);font:15.5px/1.7 var(--font);-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}[data-theme=dark] a{color:#a5b4fc}
+a:hover{text-decoration:underline}
+code{font:13.5px var(--mono);background:var(--soft);color:var(--ink);padding:1px 6px;border-radius:6px}
+pre{position:relative;background:var(--code);color:var(--codetext);border-radius:12px;padding:16px 18px;overflow:auto;font:13.5px/1.6 var(--mono);margin:14px 0 18px;border:1px solid #1d2233}
+pre code{background:none;color:inherit;padding:0;font:inherit}
+pre .c{color:#7d869c;font-style:italic}pre .s{color:#86efac}pre .k{color:#c4b5fd}pre .n{color:#fcd34d}pre .d{color:#f9a8d4}pre .f{color:#7dd3fc}
+.copy{position:absolute;top:8px;right:8px;border:1px solid #2b3145;background:#171b29;color:#c7cbe0;border-radius:7px;font:12px var(--font);padding:3px 9px;cursor:pointer;opacity:.0;transition:.15s}
+pre:hover .copy{opacity:1}
+/* layout */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;height:62px;padding:0 20px;background:color-mix(in srgb,var(--panel) 86%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;color:var(--text)}
+.brand:hover{text-decoration:none}
+.logo{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:17px}
+.ver{font:600 11px var(--mono);color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:1px 8px}
+.search{flex:1;max-width:420px;margin-left:auto;position:relative}
+.search input{width:100%;border:1px solid var(--border);background:var(--panel2);color:var(--text);border-radius:10px;padding:8px 12px 8px 34px;font:14px var(--font);outline:none}
+.search input:focus{border-color:var(--accent)}
+.search span{position:absolute;left:11px;top:7px;color:var(--muted)}
+.tbtn{border:1px solid var(--border);background:var(--panel);color:var(--text);border-radius:10px;height:36px;padding:0 12px;cursor:pointer;font:600 13px var(--font);display:inline-flex;align-items:center;gap:6px}
+.tbtn:hover{background:var(--panel2);text-decoration:none}
+.burger{display:none}
+.wrap{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1320px;margin:0 auto}
+nav.side{position:sticky;top:62px;height:calc(100vh - 62px);overflow:auto;padding:22px 14px 40px 20px;border-right:1px solid var(--border)}
+nav.side h4{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px 8px}
+nav.side a{display:block;padding:5px 10px;border-radius:8px;color:var(--text);font-size:14px}
+nav.side a:hover{background:var(--panel2);text-decoration:none}
+nav.side a.on{background:var(--soft);color:var(--ink);font-weight:600}
+nav.side a.hide{display:none}
+main{padding:28px 48px 80px;min-width:0;max-width:960px}
+section{padding-top:8px;margin-bottom:22px}
+section.hidden{display:none}
+h1{font-size:44px;line-height:1.1;letter-spacing:-.02em;margin:10px 0 12px}
+h2{font-size:28px;letter-spacing:-.01em;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--border)}
+section:first-of-type h2{border-top:0}
+h3{font-size:19px;margin:28px 0 6px}
+h4{font-size:16px;margin:20px 0 4px}
+p{margin:8px 0 12px}
+.lead{font-size:19px;color:var(--muted);max-width:720px}
+.hero{padding:26px 0 8px}
+.pill{display:inline-flex;gap:8px;align-items:center;background:var(--soft);color:var(--ink);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:11px;padding:10px 18px;font-weight:600;font-size:14.5px;border:1px solid var(--border);background:var(--panel);color:var(--text)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:hover{text-decoration:none;filter:brightness(1.05)}
+.shot{width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:0 20px 50px -20px rgba(30,30,80,.35);margin:14px 0 6px;background:var(--panel2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)}
+.card b{display:block;margin-bottom:2px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.card .ic{font-size:22px}
+table{width:100%;border-collapse:collapse;margin:12px 0 18px;font-size:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:block;overflow-x:auto}
+table thead,table tbody{display:table;width:100%;border-collapse:collapse}
+th{text-align:left;background:var(--panel2);font-weight:600;color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+th,td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td code{white-space:nowrap}
+.note,.tip,.warn{border-radius:12px;padding:12px 16px;margin:14px 0;border:1px solid;font-size:14.5px}
+.note{background:var(--soft);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+.tip{background:color-mix(in srgb,var(--good) 9%,transparent);border-color:color-mix(in srgb,var(--good) 35%,transparent)}
+.warn{background:color-mix(in srgb,var(--warn) 10%,transparent);border-color:color-mix(in srgb,var(--warn) 40%,transparent)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0}
+.steps>li{counter-increment:s;position:relative;padding:2px 0 12px 46px}
+.steps>li::before{content:counter(s);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+kbd{font:12px var(--mono);border:1px solid var(--border);border-bottom-width:2px;border-radius:6px;padding:1px 6px;background:var(--panel)}
+.cheat{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.cheat .card h4{margin:0 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
+.cheat pre{margin:0;font-size:12.5px;padding:12px 14px}
+.cheat dl{margin:0;font-size:13.5px}.cheat dt{font:12.5px var(--mono);color:var(--ink);margin-top:7px}.cheat dd{margin:0;color:var(--muted)}
+.author{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.avatar{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#01411c,#0b6b31);display:grid;place-items:center;color:#fff;font-size:30px;font-weight:700;flex:none}
+footer{border-top:1px solid var(--border);padding:26px 20px;text-align:center;color:var(--muted);font-size:14px}
+mark{background:#fde68a;color:#111;border-radius:3px}
+.nores{display:none;padding:40px 0;color:var(--muted)}
+@media (max-width:980px){
+  .wrap{grid-template-columns:1fr}
+  nav.side{position:fixed;left:0;top:62px;width:290px;background:var(--panel);z-index:30;transform:translateX(-105%);transition:.2s;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+  nav.side.open{transform:none}
+  .burger{display:inline-flex}
+  main{padding:20px 18px 60px}
+  h1{font-size:34px}
+  .search{max-width:none}
+  .hide-sm{display:none}
+}
+@media print{.top,nav.side,.copy,footer .np{display:none}.wrap{display:block}main{max-width:none;padding:0}pre{white-space:pre-wrap}section.hidden{display:block}}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="tbtn burger" id="burger" aria-label="Menu">☰</button>
+  <a class="brand" href="#home"><span class="logo">⚡</span>Velo <span class="ver">v0.2.1</span></a>
+  <div class="search"><span>⌕</span><input id="q" placeholder="Search the docs…  ( / )" autocomplete="off"></div>
+  <a class="tbtn hide-sm" href="#cheatsheet">📋 Cheat sheet</a>
+  <a class="tbtn hide-sm" href="https://github.com/rafay183/velo" target="_blank" rel="noopener">★ GitHub</a>
+  <button class="tbtn" id="theme" title="Toggle dark mode">🌙</button>
+</header>
+
+<div class="wrap">
+<nav class="side" id="side">
+  <h4>Start</h4>
+  <a href="#home">Introduction</a>
+  <a href="#install">Installation</a>
+  <a href="#quick-studio">Quick start: Studio (no code)</a>
+  <a href="#quick-python">Quick start: Python</a>
+  <h4>Velo Studio</h4>
+  <a href="#studio-screen">The Studio screen</a>
+  <a href="#studio-build">Building a page</a>
+  <a href="#studio-variables">Variables &amp; state</a>
+  <a href="#formulas">Formulas</a>
+  <a href="#actions">Button actions</a>
+  <a href="#showif">Show if (visibility)</a>
+  <a href="#studio-pages">Pages &amp; navigation</a>
+  <a href="#studio-data">Data, CSV &amp; charts</a>
+  <a href="#studio-chat">Chat component</a>
+  <a href="#hooks">Python hooks</a>
+  <a href="#templates">Templates</a>
+  <a href="#preview-export">Preview, code &amp; export</a>
+  <a href="#shortcuts">Keyboard shortcuts</a>
+  <a href="#components">Component reference</a>
+  <h4>Python</h4>
+  <a href="#py-app">App &amp; pages</a>
+  <a href="#py-text">Text &amp; feedback</a>
+  <a href="#py-inputs">Inputs</a>
+  <a href="#py-buttons">Buttons &amp; downloads</a>
+  <a href="#py-layout">Layout</a>
+  <a href="#py-data">Tables &amp; charts</a>
+  <a href="#py-state">State, keys &amp; callbacks</a>
+  <a href="#py-chat">Chat apps</a>
+  <a href="#py-speed">Caching, live updates</a>
+  <a href="#py-studio">Loading Studio apps</a>
+  <h4>Guides</h4>
+  <a href="#recipes">Recipes</a>
+  <a href="#cli">CLI reference</a>
+  <a href="#deploy">Deploy</a>
+  <a href="#format">The .velo.json format</a>
+  <a href="#how">How Velo works</a>
+  <a href="#cheatsheet">Cheat sheets</a>
+  <a href="#faq">Troubleshooting &amp; FAQ</a>
+  <a href="#contributing">Contributing</a>
+  <a href="#author">About the author</a>
+</nav>
+
+<main id="main">
+<p class="nores" id="nores">No section matches your search.</p>
+
+<!-- ============================================================ HOME -->
+<section id="home" class="hero">
+  <span class="pill">⚡ Velo 0.2.1 · now with Velo Studio</span>
+  <h1>Python web apps by drag &amp; drop, or in code.</h1>
+  <p class="lead">Velo builds polished web apps (dashboards, forms, data tools, chat UIs) with <b>zero dependencies</b>. Design visually in <b>Velo Studio</b>, or write a few lines of Python. Both produce the same app, and Studio apps export to clean Python whenever you want.</p>
+  <pre><code>pip install velo-ui
+velo studio            # drag &amp; drop builder → http://localhost:7860</code></pre>
+  <div class="cta">
+    <a class="btn pri" href="#quick-studio">🎨 Start with Studio</a>
+    <a class="btn" href="#quick-python">🐍 Start with Python</a>
+    <a class="btn" href="#cheatsheet">📋 Cheat sheet</a>
+  </div>
+  <img class="shot" src="studio.png" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/rafay183/velo/main/docs/studio.png'" alt="Velo Studio: component palette, canvas and inspector" loading="lazy">
+  <div class="grid">
+    <div class="card"><span class="ic">🧩</span><b>Drag &amp; drop builder</b><p>38 components, nested layouts, a live preview next to the canvas, undo/redo and autosave.</p></div>
+    <div class="card"><span class="ic">🧮</span><b>Spreadsheet-style logic</b><p><code>{name}</code> in text, <code>=price * qty</code> for values, button actions with no code.</p></div>
+    <div class="card"><span class="ic">🐍</span><b>Real Python underneath</b><p>Export any Studio app to readable Velo code, or plug your own functions into buttons.</p></div>
+    <div class="card"><span class="ic">📦</span><b>Zero dependencies</b><p>Pure standard library. Installs in seconds and runs anywhere Python 3.9+ runs.</p></div>
+    <div class="card"><span class="ic">⚡</span><b>Fast &amp; smooth</b><p>Only the page function re-runs; the browser morphs the DOM, so focus and scroll are kept.</p></div>
+    <div class="card"><span class="ic">🚀</span><b>Deploy anywhere</b><p><code>velo run --prod</code> or <code>velo docker</code>. Works on Render, Railway, Fly.io, a VPS…</p></div>
+  </div>
+</section>
+
+<!-- ============================================================ INSTALL -->
+<section id="install">
+<h2>Installation</h2>
+<p>You need <b>Python 3.9 or newer</b>. Check with <code>python --version</code> (on some systems: <code>python3 --version</code>). Get Python from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org</a>. On Windows, tick <b>“Add python.exe to PATH”</b> in the installer.</p>
+<h3>Recommended: inside a virtual environment</h3>
+<pre><code># 1. create a project folder and a virtual environment
+mkdir myapp
+cd myapp
+python -m venv .venv
+
+# 2. activate it
+.venv\Scripts\activate          # Windows
+source .venv/bin/activate       # macOS / Linux
+
+# 3. install Velo
+pip install velo-ui
+
+# 4. check
+velo version</code></pre>
+<p><code>velo version</code> prints the version and the author line. If it does, you're ready.</p>
+<h3>Upgrade</h3>
+<pre><code>pip install -U velo-ui</code></pre>
+<div class="note"><b>Package name vs import name.</b> You install <code>velo-ui</code>, but in Python you write <code>import velo</code>, and the command is <code>velo</code>.</div>
+<h3>Optional extras</h3>
+<p>Velo needs nothing else. If <b>pandas</b> is installed, <code>ui.table</code> and the charts accept DataFrames directly; <b>Pillow</b> images work with <code>ui.image</code>. Neither is required.</p>
+</section>
+
+<!-- ============================================================ QUICK STUDIO -->
+<section id="quick-studio">
+<h2>Quick start: Studio (no code)</h2>
+<p>Build a working app in five minutes without writing code.</p>
+<ol class="steps">
+  <li><b>Open Studio.</b> In a terminal, inside your project folder:
+    <pre><code>velo studio</code></pre>
+    Your browser opens <code>http://localhost:7860</code>. Studio creates <code>app.velo.json</code> in the folder. That file <i>is</i> your app.</li>
+  <li><b>Pick a template</b> from the welcome window (try <b>Hello world</b>), or start blank.</li>
+  <li><b>Drag a component</b> from the left panel onto the canvas, e.g. a <b>Text input</b>. Its <i>Variable name</i> is <code>name</code>.</li>
+  <li><b>Drag a Title</b> above it, click it, and in the inspector on the right type <code>Hello {name}!</code>.</li>
+  <li><b>Click ◫ Split</b> in the top bar. The real app runs on the right. Type in the input and the title changes live.</li>
+  <li><b>Add a Button.</b> In its inspector, under <i>When clicked</i>, choose <b>Show message</b> with text <code>Nice to meet you, {name} 🎉</code>.</li>
+  <li><b>Run it like a normal app</b> when you're done (Studio autosaves):
+    <pre><code>velo run app.velo.json</code></pre></li>
+</ol>
+<div class="tip">💡 Want the Python version? Click <b>&lt;/&gt; Code</b> in Studio, or run <code>velo export app.velo.json</code> to get an <code>app.py</code>.</div>
+</section>
+
+<!-- ============================================================ QUICK PYTHON -->
+<section id="quick-python">
+<h2>Quick start: Python</h2>
+<p>Create <code>app.py</code>:</p>
+<pre><code>import velo
+
+app = velo.App("Hello Velo", icon="👋")
+
+@app.page("/")
+def home(ui):
+    ui.title("Hello Velo 👋", "Type your name below")
+    name = ui.input("Your name", placeholder="Ada Lovelace")
+    level = ui.slider("Excitement", 1, 10, 7)
+    ui.text(f"Hi {name or 'there'}! " + "🎉" * level)
+    if ui.button("Celebrate", icon="✨"):
+        ui.toast(f"Thanks {name}!", "success")
+
+if __name__ == "__main__":
+    app.run()</code></pre>
+<p>Run it:</p>
+<pre><code>python app.py          # or: velo run app.py --open</code></pre>
+<p>Open <code>http://localhost:8000</code>. Save the file and the browser updates instantly (hot reload) without losing what you typed.</p>
+<div class="note"><b>The mental model:</b> your page function runs top to bottom. Every widget <i>returns its current value</i>. When a visitor changes something, Velo re-runs the function and updates only what changed on the screen.</div>
+<p>Scaffold a starter project with <code>velo new myapp</code>.</p>
+</section>
+
+<!-- ============================================================ STUDIO SCREEN -->
+<section id="studio-screen">
+<h2>The Studio screen</h2>
+<img class="shot" src="studio-split.png" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/rafay183/velo/main/docs/studio-split.png'" alt="Velo Studio split view with live preview" loading="lazy">
+<table>
+<thead><tr><th>Area</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><b>Top bar</b></td><td>App title · undo/redo · views <b>Design</b>, <b>Split</b>, <b>Preview</b>, <b>Code</b> · desktop/mobile frame · problems badge · save status · <b>✨ Templates</b> · <b>Export</b> menu · dark mode.</td></tr>
+<tr><td><b>Left: Components</b></td><td>The palette, grouped (Text, Inputs, Actions, Data, Feedback, Layout). Search with <kbd>/</kbd>. Drag onto the canvas or click to add.</td></tr>
+<tr><td><b>Left: Pages</b></td><td>Add, rename, reorder, duplicate and delete pages; set each page's URL path and icon.</td></tr>
+<tr><td><b>Left: App &amp; Data</b></td><td>Title, icon, accent colour, theme, wide layout, <b>state variables</b>, the Python hooks file, and a formula cheat sheet.</td></tr>
+<tr><td><b>Centre: canvas</b></td><td>Your page as it will look: a <b>Sidebar</b> zone on the left and the page <b>body</b>. Blue lines show where a drop will land.</td></tr>
+<tr><td><b>Right: inspector</b></td><td>Properties of the selected component, its actions (buttons), <i>Show only if</i>, and any problems.</td></tr>
+</tbody></table>
+<p><b>Command options:</b> <code>velo studio [file.velo.json] [-t template] [--port 7860] [--host 127.0.0.1] [--no-open] [--force]</code>. The live preview runs on <b>port + 1</b> (7861 by default).</p>
+</section>
+
+<!-- ============================================================ BUILD -->
+<section id="studio-build">
+<h2>Building a page</h2>
+<h3>Adding components</h3>
+<ul>
+<li><b>Drag</b> a tile from the palette and drop it anywhere: between items, inside a card, a column, a tab, or the sidebar.</li>
+<li><b>Click</b> a tile to add it right after the selected component (or inside it, if the selection is a container). This also works on touch screens.</li>
+</ul>
+<h3>Selecting and editing</h3>
+<ul>
+<li>Click a component to select it. A blue chip appears with <b>↑ ↓</b> (move), <b>⧉</b> (duplicate) and <b>✕</b> (delete).</li>
+<li>Double-click to jump straight into its first property.</li>
+<li>The inspector shows all properties. Changes appear instantly on the canvas and in the preview.</li>
+<li>Drag a component that's already on the canvas to move it, even into another container.</li>
+</ul>
+<h3>Layout components (containers)</h3>
+<table>
+<thead><tr><th>Container</th><th>Use it for</th><th>Tip</th></tr></thead>
+<tbody>
+<tr><td><b>Columns</b></td><td>Side-by-side content</td><td><i>Widths</i> <code>1,1</code> = two equal columns, <code>2,1</code> = wide + narrow, <code>1,1,1</code> = three.</td></tr>
+<tr><td><b>Card</b></td><td>A panel with a title</td><td>Great for forms and KPI groups.</td></tr>
+<tr><td><b>Row</b></td><td>Items in a line (buttons, badges)</td><td>Wraps on small screens.</td></tr>
+<tr><td><b>Tabs</b></td><td>Switchable sections</td><td>One tab label per line. Click tab labels on the canvas to edit each tab.</td></tr>
+<tr><td><b>Expander</b></td><td>Collapsible “more details”</td><td>Set <i>Open by default</i> if needed.</td></tr>
+<tr><td><b>Group</b></td><td>Invisible wrapper</td><td>Combine with <a href="#showif">Show if</a> to hide/show many things at once.</td></tr>
+</tbody></table>
+<p>Every page also has a <b>Sidebar</b>: drop filters and settings there.</p>
+<div class="tip">💡 Shrinking columns or tabs never deletes content. Extra items move into the last column or tab.</div>
+</section>
+
+<!-- ============================================================ VARIABLES -->
+<section id="studio-variables">
+<h2>Variables &amp; state</h2>
+<p>Velo Studio apps work like a spreadsheet: things have names, and anything can refer to them.</p>
+<h3>Input variables</h3>
+<p>Every input (text, number, slider, dropdown, checkbox, upload, chat…) has a <b>Variable name</b>, e.g. <code>name</code>, <code>age</code>, <code>city</code>, <code>file</code>. Its value is whatever the visitor entered. Rules: start with a letter; letters, digits and <code>_</code> only; each name used once.</p>
+<h3>State variables</h3>
+<p>Values the app <b>remembers for each visitor</b>: a counter, a list of form entries, a “logged in” flag. Add them in <b>App &amp; Data → State variables</b> with a starting value:</p>
+<table>
+<thead><tr><th>Starting value</th><th>Type</th><th>Example use</th></tr></thead>
+<tbody>
+<tr><td><code>0</code></td><td>number</td><td>click counter, score</td></tr>
+<tr><td><code>""</code></td><td>text</td><td>a status message</td></tr>
+<tr><td><code>[]</code></td><td>list</td><td>form entries, a to-do list (use with <b>Add to list</b>)</td></tr>
+<tr><td><code>false</code></td><td>yes/no</td><td>show/hide something with <b>Flip yes/no</b></td></tr>
+<tr><td><code>{"a": 1}</code></td><td>dictionary</td><td>settings</td></tr>
+</tbody></table>
+<div class="tip">💡 Typing a new name in a button action's <i>Variable</i> field creates the state variable for you.</div>
+<h3>Renaming</h3>
+<p>Rename a variable in the inspector, and every <code>{reference}</code>, formula and action that uses it is updated automatically.</p>
+</section>
+
+<!-- ============================================================ FORMULAS -->
+<section id="formulas">
+<h2>Formulas</h2>
+<p>Formulas are the only “code” you ever write in Studio. They use Python syntax and run in a safe sandbox.</p>
+<table>
+<thead><tr><th>You write</th><th>Where</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td><code>Hello {name}!</code></td><td>any text property</td><td>A <b>template</b>: <code>{…}</code> is replaced by the value.</td></tr>
+<tr><td><code>Total: {price * qty:,.2f}</code></td><td>text</td><td>Compute + format → <code>Total: 1,234.50</code></td></tr>
+<tr><td><code>=count + 1</code></td><td>any property</td><td>Starts with <code>=</code>: the whole value is computed.</td></tr>
+<tr><td><code>agree and '@' in email</code></td><td>Show if / Only if</td><td>True or false.</td></tr>
+<tr><td><code>{{</code> and <code>}}</code></td><td>text</td><td>Literal <code>{</code> and <code>}</code>.</td></tr>
+</tbody></table>
+<h3>What you can use</h3>
+<ul>
+<li>Arithmetic <code>+ - * / // % **</code>, comparisons <code>== != &lt; &lt;= &gt; &gt;=</code>, <code>and or not</code>, <code>in</code></li>
+<li>Conditions: <code>'Pass' if score &gt;= 50 else 'Fail'</code></li>
+<li>Lists, dicts, indexing and slicing: <code>rows[0]['name']</code>, <code>text[:20]</code></li>
+<li>List comprehensions: <code>[r for r in rows if r['score'] &gt; 90]</code></li>
+<li>Text methods: <code>name.upper()</code>, <code>.lower() .title() .strip() .split() .replace() .startswith()</code>…</li>
+<li>Dict methods: <code>.get() .keys() .values() .items()</code>; dates: <code>.year .month .day .strftime()</code></li>
+</ul>
+<h3>Functions</h3>
+<table>
+<thead><tr><th>Function</th><th>Example</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>len sum min max round abs</code></td><td><code>=round(sum(xs) / len(xs), 1)</code></td><td>The usual maths</td></tr>
+<tr><td><code>sorted range list dict set any all zip enumerate reversed</code></td><td><code>=sorted(names)</code></td><td>Collections</td></tr>
+<tr><td><code>str int float bool</code></td><td><code>=int(age) + 1</code></td><td>Convert types</td></tr>
+<tr><td><code>csv(text_or_file)</code></td><td><code>=csv(file)</code></td><td>Rows (list of dicts) from CSV text or an uploaded file; numbers converted</td></tr>
+<tr><td><code>col(rows, name)</code></td><td><code>=sum(col(rows, 'sales'))</code></td><td>All values of one column</td></tr>
+<tr><td><code>where(rows, column, value)</code></td><td><code>=where(rows, 'city', city)</code></td><td>Filter rows. <code>value</code> may be a list; empty = all rows</td></tr>
+<tr><td><code>group(rows, by, value, agg)</code></td><td><code>=group(rows, 'month', 'sales')</code></td><td>Group &amp; aggregate. <code>agg</code>: <code>'sum'</code> (default), <code>'mean'</code>, <code>'count'</code>, <code>'min'</code>, <code>'max'</code></td></tr>
+<tr><td><code>columns(rows)</code></td><td><code>=columns(csv(file))</code></td><td>Column names (perfect for dropdown options)</td></tr>
+<tr><td><code>mean(xs)</code></td><td><code>=mean(col(rows, 'score'))</code></td><td>Average</td></tr>
+<tr><td><code>fmt(value, spec)</code></td><td><code>=fmt(total, ',.2f')</code></td><td>Format a number as text</td></tr>
+<tr><td><code>to_csv(rows)</code></td><td><code>=to_csv(entries)</code></td><td>Rows back to CSV text</td></tr>
+<tr><td><code>today() now()</code></td><td><code>Today is {today()}</code></td><td>Current date / date-time</td></tr>
+<tr><td><code>sqrt pi</code></td><td><code>=round(pi * r ** 2, 2)</code></td><td>Maths constants/functions</td></tr>
+</tbody></table>
+<div class="note">🔒 <b>Safe by design:</b> formulas can't import modules, open files, reach the network, or access anything starting with <code>_</code>. They're written by the app author; visitors only ever enter data, never code.</div>
+</section>
+
+<!-- ============================================================ ACTIONS -->
+<section id="actions">
+<h2>Button actions</h2>
+<p>Select a <b>Button</b> → <b>⚡ When clicked</b> → <b>+ Add action</b>. Actions run <b>top to bottom</b>. Each one can have an <b>Only if</b> condition.</p>
+<table>
+<thead><tr><th>Action</th><th>Fields</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><b>Set variable</b></td><td>variable, value</td><td><code>count</code> ← <code>=count + 1</code></td></tr>
+<tr><td><b>Flip yes/no</b></td><td>variable</td><td><code>show_help</code></td></tr>
+<tr><td><b>Add to list</b></td><td>variable, value</td><td><code>entries</code> ← <code>={'name': name, 'email': email}</code></td></tr>
+<tr><td><b>Clear variable</b></td><td>variable</td><td><code>entries</code> becomes <code>[]</code>, numbers <code>0</code>, text <code>""</code></td></tr>
+<tr><td><b>Reset inputs</b></td><td>names (blank = all)</td><td><code>name email</code></td></tr>
+<tr><td><b>Show message</b></td><td>text, style</td><td><code>Saved, {name}!</code> · info / success / warning / error</td></tr>
+<tr><td><b>Go to page</b></td><td>page</td><td><code>/thanks</code></td></tr>
+<tr><td><b>Run Python hook</b></td><td>function name</td><td><code>send_email</code> (see <a href="#hooks">Python hooks</a>)</td></tr>
+</tbody></table>
+<p><b>Values:</b> <code>=…</code> is computed; <code>5</code> becomes a number; <code>true</code>/<code>false</code> become yes/no; anything else is text (with <code>{templates}</code>).</p>
+<h3>Example: a validated sign-up button</h3>
+<table>
+<thead><tr><th>#</th><th>Action</th><th>Only if</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Show message “Please enter a valid email” (warning)</td><td><code>'@' not in email</code></td></tr>
+<tr><td>2</td><td>Add to list <code>entries</code> ← <code>={'name': name, 'email': email}</code></td><td><code>'@' in email</code></td></tr>
+<tr><td>3</td><td>Show message “Welcome, {name}!” (success)</td><td><code>'@' in email</code></td></tr>
+<tr><td>4</td><td>Reset inputs <code>name email</code></td><td><code>'@' in email</code></td></tr>
+</tbody></table>
+</section>
+
+<!-- ============================================================ SHOW IF -->
+<section id="showif">
+<h2>Show if (visibility)</h2>
+<p>Any component has <b>👁 Visibility → Show only if</b>. Write a condition; the component appears only when it's true. Leave empty to always show.</p>
+<table>
+<thead><tr><th>Condition</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>agree</code></td><td>the “agree” checkbox is ticked</td></tr>
+<tr><td><code>len(entries) &gt; 0</code></td><td>the list has at least one item</td></tr>
+<tr><td><code>plan == 'Pro'</code></td><td>a dropdown/segmented choice</td></tr>
+<tr><td><code>file</code></td><td>a file has been uploaded</td></tr>
+<tr><td><code>age &gt;= 18 and country == 'Pakistan'</code></td><td>combine with <code>and</code> / <code>or</code></td></tr>
+</tbody></table>
+<div class="tip">💡 Put several components in a <b>Group</b> and give the group the condition to hide/show them together.</div>
+</section>
+
+<!-- ============================================================ PAGES -->
+<section id="studio-pages">
+<h2>Pages &amp; navigation</h2>
+<ul>
+<li><b>Pages</b> tab → <b>+ Add page</b>. Set its <b>Title</b>, <b>Path</b> (e.g. <code>/about</code>) and <b>Icon</b>.</li>
+<li>With two or more pages, the app gets a navigation menu automatically (sidebar on desktop, ☰ menu on mobile).</li>
+<li>Buttons can jump between pages with the <b>Go to page</b> action.</li>
+<li>Input values are kept per visitor across pages, so a value typed on page 1 can be shown on page 2 with <code>{name}</code>.</li>
+</ul>
+</section>
+
+<!-- ============================================================ DATA -->
+<section id="studio-data">
+<h2>Data, CSV &amp; charts</h2>
+<p><b>Table</b> and <b>Chart</b> have a <i>Data</i> property that accepts either:</p>
+<ul>
+<li><b>CSV text</b> pasted directly (first line = column names), or</li>
+<li><b>a formula</b> starting with <code>=</code>, such as <code>=entries</code> (a state list), <code>=csv(file)</code> (an upload), <code>=group(csv(file), 'region', 'sales')</code>.</li>
+</ul>
+<h3>Upload a CSV and chart it</h3>
+<ol class="steps">
+<li>Drop a <b>File upload</b> (variable <code>file</code>, accept <code>.csv</code>) into the sidebar.</li>
+<li>Drop a <b>Dropdown</b> named <code>x_col</code> with options <code>=columns(csv(file))</code>, and another named <code>y_col</code> with the same options.</li>
+<li>Drop a <b>Chart</b>: Data <code>=csv(file)</code>, X column <code>{x_col}</code>, Y columns <code>{y_col}</code>.</li>
+<li>Drop a <b>Table</b>: Data <code>=csv(file)</code>. Give the chart and table <i>Show if</i> <code>file</code>.</li>
+</ol>
+<p>The <b>Data explorer</b> template is exactly this, with a sample dataset.</p>
+<h3>Charts</h3>
+<p>Types: <b>line</b>, <b>area</b>, <b>bar</b>, <b>pie</b> (donut). <i>X column</i> is the label column; <i>Y columns</i> can be several, comma-separated (<code>sales, costs</code>). Leave them empty and Velo picks sensible columns. <i>Stacked</i> stacks bars/areas.</p>
+<h3>Download</h3>
+<p>The <b>Download</b> component's content can be text with templates, or a formula. A list of rows (e.g. <code>=entries</code>) is turned into CSV automatically.</p>
+</section>
+
+<!-- ============================================================ CHAT -->
+<section id="studio-chat">
+<h2>Chat component</h2>
+<p>Drop a <b>Chat</b> component. It shows a greeting, the conversation, and an input box. Its reply comes from either:</p>
+<ul>
+<li><b>Reply template</b>: text where <code>{message}</code> is what the visitor typed, e.g. <code>You said **{message}** ({len(message.split())} words)</code>. Markdown works.</li>
+<li><b>Python hook</b>: the name of a function in your hooks file that returns the reply. Connect any AI model this way.</li>
+</ul>
+<p>The conversation is stored in the chat's variable (default <code>chat</code>) as a list of <code>{'role': ..., 'content': ...}</code>; <code>=len(chat)</code> counts messages. <b>Reset inputs</b> with the chat's name clears it.</p>
+</section>
+
+<!-- ============================================================ HOOKS -->
+<section id="hooks">
+<h2>Python hooks</h2>
+<p>Hooks let a Studio app call your own Python, with any library you like (send email, query a database, call an AI model…).</p>
+<ol class="steps">
+<li>In <b>App &amp; Data → Python hooks</b>, set <i>Hooks file</i> to <code>hooks.py</code>.</li>
+<li>Create <code>hooks.py</code> next to your <code>app.velo.json</code>.</li>
+<li>Use a function from a button (<b>Run Python hook</b>) or a chat component (<i>hook</i> property).</li>
+</ol>
+<pre><code># hooks.py
+def send_email(ctx):                 # button action
+    to = ctx["email"]                # read any variable (input or state)
+    # ... smtplib / an email API here ...
+    ctx.set("sent", True)            # change a state variable or an input
+    ctx.toast(f"Email sent to {to} ✉️", "success")
+
+def answer(ctx, message):            # chat hook: return the reply (markdown allowed)
+    if "price" in message.lower():
+        return "It's **free**!"
+    return f"You said: {message}"</code></pre>
+<table>
+<thead><tr><th>Context member</th><th>What it gives you</th></tr></thead>
+<tbody>
+<tr><td><code>ctx["name"]</code> / <code>ctx.get("name", default)</code></td><td>Read an input or state variable</td></tr>
+<tr><td><code>ctx.values</code></td><td>Dict of all input values</td></tr>
+<tr><td><code>ctx.state</code></td><td>This visitor's state (dict-like)</td></tr>
+<tr><td><code>ctx.set(name, value)</code></td><td>Set a state variable or an input</td></tr>
+<tr><td><code>ctx.toast(text, kind)</code></td><td>Show a message (info, success, warning, error)</td></tr>
+<tr><td><code>ctx.navigate(path)</code></td><td>Go to another page</td></tr>
+<tr><td><code>ctx.ui</code></td><td>The full Velo <code>ui</code> object for anything else</td></tr>
+</tbody></table>
+<p>Studio reloads the preview automatically when <code>hooks.py</code> changes. You can also register functions in Python with <code>@app.action("name")</code>; see <a href="#py-studio">Loading Studio apps</a>.</p>
+</section>
+
+<!-- ============================================================ TEMPLATES -->
+<section id="templates">
+<h2>Templates</h2>
+<p>Open <b>✨ Templates</b> in Studio, or start from one on the command line: <code>velo studio app.velo.json -t dashboard</code>.</p>
+<table>
+<thead><tr><th>Template</th><th>Name for <code>-t</code></th><th>Shows you</th></tr></thead>
+<tbody>
+<tr><td>⬜ Blank</td><td><code>blank</code></td><td>An empty page</td></tr>
+<tr><td>👋 Hello world</td><td><code>hello</code></td><td>Inputs, live text, a counter button, reset</td></tr>
+<tr><td>📊 Dashboard</td><td><code>dashboard</code></td><td>Sidebar filters, KPI metrics, tabs with charts, table + CSV download, two pages</td></tr>
+<tr><td>📝 Form + table</td><td><code>form</code></td><td>Validation with “Only if”, adding to a list, reset, export CSV, show-if card</td></tr>
+<tr><td>🔎 Data explorer</td><td><code>explorer</code></td><td>Upload a CSV, choose columns and chart type</td></tr>
+<tr><td>💬 Chatbot</td><td><code>chatbot</code></td><td>Chat UI with a reply template, ready for an AI hook</td></tr>
+<tr><td>🧮 Calculator</td><td><code>calculator</code></td><td>Loan maths with live formulas and a generated chart</td></tr>
+</tbody></table>
+</section>
+
+<!-- ============================================================ PREVIEW EXPORT -->
+<section id="preview-export">
+<h2>Preview, code &amp; export</h2>
+<ul>
+<li><b>◫ Split</b>: canvas + live app side by side. <b>▶ Preview</b>: the live app alone. Edits hot-swap into the preview without losing what you typed there.</li>
+<li><b>🖥️ / 📱</b>: desktop or phone-sized frame.</li>
+<li><b>&lt;/&gt; Code</b>: the exact Python your app equals. Copy or download it.</li>
+<li><b>Export</b> menu: download <code>app.py</code>, download the <code>.velo.json</code>, import a <code>.velo.json</code>, or open the preview in a new tab.</li>
+</ul>
+<pre><code>velo export app.velo.json            # writes app.py next to it
+velo export app.velo.json -o web.py  # choose the file name
+python app.py                        # the exported app runs on its own</code></pre>
+<p>Exported code is ordinary Velo Python: widgets become variables, actions become small functions, templates become f-strings. It's the natural path from no-code to full code.</p>
+<h3>Saving</h3>
+<p>Studio <b>autosaves</b> every change to the <code>.velo.json</code> file (status in the top bar). <kbd>Ctrl</kbd>+<kbd>S</kbd> saves immediately. The file is plain JSON, so commit it to git like any source file.</p>
+<h3>Problems</h3>
+<p>Studio checks your app as you work: unknown variables, formula typos, duplicate names. A red/yellow badge marks the component; the top-bar <b>⛔ problems</b> button lists them all and jumps to each.</p>
+</section>
+
+<!-- ============================================================ SHORTCUTS -->
+<section id="shortcuts">
+<h2>Keyboard shortcuts</h2>
+<table>
+<thead><tr><th>Keys</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td><kbd>Del</kbd> / <kbd>Backspace</kbd></td><td>Delete selected component</td></tr>
+<tr><td><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>D</kbd></td><td>Duplicate</td></tr>
+<tr><td><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Z</kbd></td><td>Undo</td></tr>
+<tr><td><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd> or <kbd>Ctrl</kbd> + <kbd>Y</kbd></td><td>Redo</td></tr>
+<tr><td><kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd></td><td>Move up / down</td></tr>
+<tr><td><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>S</kbd></td><td>Save now</td></tr>
+<tr><td><kbd>/</kbd></td><td>Search components</td></tr>
+<tr><td><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd></td><td>Design · Split · Preview · Code</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>Deselect / close dialog</td></tr>
+<tr><td>Double-click</td><td>Edit the component's first property</td></tr>
+</tbody></table>
+</section>
+
+<!-- ============================================================ COMPONENTS -->
+<section id="components">
+<h2>Component reference (Studio)</h2>
+<p>Every component, its <code>type</code> in <code>.velo.json</code>, and its properties. Inputs marked 🔤 are variables.</p>
+<table>
+<thead><tr><th>Type</th><th>Name</th><th>What it is</th><th>Properties</th></tr></thead>
+<tbody>
+<tr><td colspan="4"><b>Text</b></td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>Big page title + subtitle</td><td>text, subtitle</td></tr>
+<tr><td><code>header</code></td><td>Header</td><td>Section heading</td><td>text</td></tr>
+<tr><td><code>subheader</code></td><td>Subheader</td><td>Smaller heading</td><td>text</td></tr>
+<tr><td><code>text</code></td><td>Text</td><td>Paragraph</td><td>text, muted</td></tr>
+<tr><td><code>markdown</code></td><td>Markdown</td><td>Rich text: bold, lists, links, tables</td><td>text</td></tr>
+<tr><td><code>caption</code></td><td>Caption</td><td>Small muted text</td><td>text</td></tr>
+<tr><td><code>badge</code></td><td>Badge</td><td>Coloured label</td><td>text, kind (accent/success/warning/error/neutral)</td></tr>
+<tr><td><code>link</code></td><td>Link</td><td>External link</td><td>text, url</td></tr>
+<tr><td><code>code</code></td><td>Code</td><td>Code block with copy button</td><td>code, lang</td></tr>
+<tr><td><code>image</code></td><td>Image</td><td>Image from a URL</td><td>src, caption, width</td></tr>
+<tr><td><code>divider</code></td><td>Divider</td><td>Horizontal line</td><td>—</td></tr>
+<tr><td><code>space</code></td><td>Spacer</td><td>Vertical space</td><td>height</td></tr>
+<tr><td colspan="4"><b>Feedback</b></td></tr>
+<tr><td><code>alert</code></td><td>Alert</td><td>Info / success / warning / error box</td><td>kind, title, text</td></tr>
+<tr><td><code>metric</code></td><td>Metric</td><td>KPI number with delta arrow</td><td>label, value, delta, inverse, help</td></tr>
+<tr><td><code>progress</code></td><td>Progress</td><td>Progress bar (0–100)</td><td>value, label</td></tr>
+<tr><td colspan="4"><b>Inputs</b> 🔤</td></tr>
+<tr><td><code>input</code></td><td>Text input</td><td>Single-line text</td><td>name, label, placeholder, value, itype (text/password/email/url/tel), help</td></tr>
+<tr><td><code>textarea</code></td><td>Text area</td><td>Multi-line text</td><td>name, label, placeholder, value, rows, help</td></tr>
+<tr><td><code>number</code></td><td>Number</td><td>Number box</td><td>name, label, value, min, max, step, help</td></tr>
+<tr><td><code>slider</code></td><td>Slider</td><td>Drag to pick a number</td><td>name, label, min, max, value, step, suffix, help</td></tr>
+<tr><td><code>select</code></td><td>Dropdown</td><td>Pick one</td><td>name, label, options, value, help</td></tr>
+<tr><td><code>radio</code></td><td>Segmented</td><td>Pick one of a few (buttons)</td><td>name, label, options, value</td></tr>
+<tr><td><code>multiselect</code></td><td>Chips</td><td>Pick many</td><td>name, label, options, value</td></tr>
+<tr><td><code>checkbox</code></td><td>Checkbox</td><td>Yes / no</td><td>name, label, value</td></tr>
+<tr><td><code>toggle</code></td><td>Switch</td><td>On / off</td><td>name, label, value</td></tr>
+<tr><td><code>date</code></td><td>Date</td><td>Date picker</td><td>name, label</td></tr>
+<tr><td><code>color</code></td><td>Colour</td><td>Colour picker</td><td>name, label, value</td></tr>
+<tr><td><code>upload</code></td><td>File upload</td><td>Drag &amp; drop file</td><td>name, label, accept</td></tr>
+<tr><td colspan="4"><b>Actions</b></td></tr>
+<tr><td><code>button</code></td><td>Button</td><td>Runs actions</td><td>label, kind (primary/secondary/ghost/danger), icon, full, actions</td></tr>
+<tr><td><code>download</code></td><td>Download</td><td>Download text/CSV</td><td>label, content, filename</td></tr>
+<tr><td colspan="4"><b>Data</b></td></tr>
+<tr><td><code>table</code></td><td>Table</td><td>Searchable, sortable, paginated</td><td>data, page_size, search</td></tr>
+<tr><td><code>chart</code></td><td>Chart</td><td>Line, area, bar, pie</td><td>kind, data, x, y, title, height, stacked</td></tr>
+<tr><td><code>chat</code></td><td>Chat 🔤</td><td>Conversation UI</td><td>name, placeholder, greeting, reply, hook</td></tr>
+<tr><td colspan="4"><b>Layout</b> (hold other components)</td></tr>
+<tr><td><code>columns</code></td><td>Columns</td><td>Side by side</td><td>widths, gap (sm/md/lg)</td></tr>
+<tr><td><code>card</code></td><td>Card</td><td>Panel</td><td>title, subtitle</td></tr>
+<tr><td><code>row</code></td><td>Row</td><td>Horizontal line</td><td>—</td></tr>
+<tr><td><code>tabs</code></td><td>Tabs</td><td>Tabbed sections</td><td>labels</td></tr>
+<tr><td><code>expander</code></td><td>Expander</td><td>Collapsible</td><td>label, open</td></tr>
+<tr><td><code>container</code></td><td>Group</td><td>Invisible wrapper</td><td>—</td></tr>
+</tbody></table>
+<p>Every component also accepts <code>show_if</code>.</p>
+</section>
+
+<!-- ============================================================ PY APP -->
+<section id="py-app">
+<h2>Python: App &amp; pages</h2>
+<pre><code>import velo
+
+app = velo.App(
+    "My App",            # title (browser tab + sidebar)
+    icon="🚀",           # emoji favicon/logo
+    theme="auto",        # "auto" | "light" | "dark"
+    accent="#10b981",    # one colour themes everything
+    wide=False,          # full-width layout
+)
+
+@app.page("/", title="Dashboard", icon="📊")
+def dashboard(ui):
+    ui.title("Dashboard")
+
+@app.page("/settings", title="Settings", icon="⚙️")
+def settings(ui):
+    ui.title("Settings")
+
+app.run()                # dev: hot reload · app.run(prod=True) for deployment</code></pre>
+<p><code>app.run(host=None, port=None, *, reload=None, prod=None, open=False)</code>. Defaults: port <code>8000</code> (or <code>$PORT</code>), host <code>127.0.0.1</code> in dev, <code>0.0.0.0</code> in prod. Two or more pages get automatic navigation.</p>
+</section>
+
+<!-- ============================================================ PY TEXT -->
+<section id="py-text">
+<h2>Python: text &amp; feedback</h2>
+<pre><code>ui.title("Title", "optional subtitle")
+ui.header("Section");  ui.subheader("Subsection")
+ui.text("Paragraph", muted=False);  ui.caption("small note")
+ui.markdown("**bold**, _italic_, `code`, [link](https://...)")   # safe markdown (alias ui.md)
+ui.code("print('hi')", lang="python")
+ui.json({"a": 1})
+ui.badge("New", "success");  ui.link("Docs", "https://...")
+ui.image("photo.png", caption="...", width=400)    # URL, path, bytes or PIL image
+ui.divider();  ui.space(24)
+ui.info("..."); ui.success("..."); ui.warning("..."); ui.error("...", title="Oops")
+ui.alert("text", kind="info", title=None)
+ui.metric("Revenue", "$12.4k", delta="+8%", help="...", inverse=False)
+ui.progress(0.65, "Uploading")                     # 0.0 – 1.0
+ui.toast("Saved!", "success")                      # corner notification
+ui.html("&lt;b&gt;trusted HTML&lt;/b&gt;")</code></pre>
+</section>
+
+<!-- ============================================================ PY INPUTS -->
+<section id="py-inputs">
+<h2>Python: inputs</h2>
+<p>Every input returns its current value. Give it <code>key="..."</code> to read/write it from anywhere with <code>ui.get</code> / <code>ui.set</code>.</p>
+<pre><code>name  = ui.input("Name", placeholder="Ada", type="text", help=None)   # type: text|password|email|url|tel
+bio   = ui.textarea("Bio", rows=4)
+age   = ui.number("Age", 30, min=0, max=120, step=1)
+level = ui.slider("Level", 0, 100, 50, step=5, suffix="%")
+city  = ui.select("City", ["Karachi", "Lahore", "Islamabad"])   # returns the option itself (any type)
+plan  = ui.radio("Plan", ["Free", "Pro", "Team"])               # segmented control (alias ui.segmented)
+tags  = ui.multiselect("Tags", ["Python", "Data", "AI"])        # list
+ok    = ui.checkbox("I agree");   dark = ui.toggle("Dark mode")
+day   = ui.date("Start date")                                   # datetime.date or None
+color = ui.color("Brand colour", "#6366f1")
+f     = ui.upload("CSV file", accept=".csv", multiple=False)    # UploadedFile | list | None
+if f:
+    ui.text(f"{f.name} · {f.size} bytes")
+    rows = f.text()                                             # decoded text · f.data is bytes</code></pre>
+<p>Options can be any objects. Use <code>format=lambda o: o.name</code> to control how they're shown. All inputs accept <code>on_change=fn, args=(...)</code>.</p>
+</section>
+
+<!-- ============================================================ PY BUTTONS -->
+<section id="py-buttons">
+<h2>Python: buttons &amp; downloads</h2>
+<pre><code>if ui.button("Save", icon="💾"):           # True on the run caused by the click
+    save()
+
+ui.button("Delete", kind="danger", on_click=delete, args=(item_id,))
+# kind: primary | secondary | ghost | danger · full=True · disabled=True
+
+ui.download("Export CSV", csv_text, "report.csv")           # str or bytes
+ui.download("Image", png_bytes, "chart.png", mime="image/png")</code></pre>
+</section>
+
+<!-- ============================================================ PY LAYOUT -->
+<section id="py-layout">
+<h2>Python: layout</h2>
+<pre><code>a, b, c = ui.columns(3)                 # or ui.columns([2, 1]), gap="sm"|"md"|"lg"
+a.metric("Users", 1520)                 # containers proxy every component…
+with b:                                 # …or use `with`
+    ui.metric("Revenue", "$12k")
+
+with ui.card("Settings", "optional subtitle"):
+    ui.toggle("Enabled")
+
+t1, t2 = ui.tabs(["Chart", "Data"])
+with t1: ui.line_chart(rows)
+with t2: ui.table(rows)
+
+with ui.expander("Advanced", open=False):
+    ui.number("Retries", 3)
+
+with ui.sidebar:                        # the left sidebar
+    region = ui.select("Region", ["North", "South"])
+
+with ui.row():                          # horizontal group (buttons, badges)
+    ui.button("Yes"); ui.button("No", kind="secondary")
+
+with ui.container(): ...                # plain grouping</code></pre>
+</section>
+
+<!-- ============================================================ PY DATA -->
+<section id="py-data">
+<h2>Python: tables &amp; charts</h2>
+<p>Data can be a pandas DataFrame, a list of dicts, a dict of lists, or a list of lists.</p>
+<pre><code>rows = [{"month": "Jan", "sales": 120, "costs": 80},
+        {"month": "Feb", "sales": 150, "costs": 90}]
+
+ui.table(rows, page_size=10, search=True)          # sortable, searchable (alias ui.dataframe)
+ui.line_chart(rows, x="month", y=["sales", "costs"])
+ui.area_chart(rows, x="month", y="sales", title="Sales")
+ui.bar_chart(rows, x="month", y=["sales", "costs"], stacked=True)
+ui.pie_chart({"k": ["A", "B"], "v": [60, 40]})
+ui.chart(rows, x="month", y="sales", kind="bar", height=300)    # generic</code></pre>
+<p>Data helpers used by Studio are available in Python too:</p>
+<pre><code>from velo.helpers import csv, col, where, group, columns, mean, to_csv, fmt
+
+data = csv(open("sales.csv").read())        # or csv(uploaded_file)
+north = where(data, "region", "North")
+ui.bar_chart(group(north, "month", "sales"), x="month", y="sales")</code></pre>
+</section>
+
+<!-- ============================================================ PY STATE -->
+<section id="py-state">
+<h2>Python: state, keys &amp; callbacks</h2>
+<pre><code>@app.page("/")
+def counter(ui):
+    ui.init(count=0, todos=[])          # defaults, set once per visitor
+
+    def add(step):
+        ui.state.count += step          # callbacks run BEFORE the re-render
+
+    with ui.row():
+        ui.button("−", on_click=add, args=(-1,), kind="secondary")
+        ui.button("+", on_click=add, args=(1,))
+    ui.metric("Count", ui.state.count)</code></pre>
+<table>
+<thead><tr><th>Call</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>ui.init(**defaults)</code></td><td>Set state defaults once per session</td></tr>
+<tr><td><code>ui.state.x</code> / <code>ui.state["x"]</code></td><td>Per-visitor memory (dict-like). Use <code>["items"]</code> form for names like <i>items</i>, <i>keys</i></td></tr>
+<tr><td><code>ui.get(key, default)</code> / <code>ui.set(key, value)</code></td><td>Read/write any widget that has <code>key=</code></td></tr>
+<tr><td><code>ui.reset(*keys)</code></td><td>Reset widgets to defaults (no keys = all)</td></tr>
+<tr><td><code>ui.navigate("/page")</code></td><td>Go to another page (also inside callbacks)</td></tr>
+<tr><td><code>ui.rerun()</code></td><td>Run the page again immediately</td></tr>
+<tr><td><code>ui.session_id</code></td><td>This visitor's session id</td></tr>
+</tbody></table>
+</section>
+
+<!-- ============================================================ PY CHAT -->
+<section id="py-chat">
+<h2>Python: chat apps</h2>
+<pre><code>@app.page("/")
+def chat(ui):
+    ui.init(msgs=[])
+    for role, text in ui.state.msgs:
+        ui.chat_message(role, text)               # role: "user" | "assistant"
+    if q := ui.chat_input("Ask me anything…"):
+        reply = my_llm(q)                         # any AI model / logic
+        ui.state.msgs += [("user", q), ("assistant", reply)]
+        ui.rerun()</code></pre>
+</section>
+
+<!-- ============================================================ PY SPEED -->
+<section id="py-speed">
+<h2>Python: caching &amp; live updates</h2>
+<pre><code>@velo.cache(ttl=300, maxsize=256)    # shared across visitors and re-runs
+def load_data(path):
+    return expensive_read(path)
+
+ui.autorefresh(5)                    # live dashboard: re-run every 5 s while open
+app.push()                           # from a background thread: refresh all browsers
+app.push(ui.session_id)              # …or just one visitor</code></pre>
+</section>
+
+<!-- ============================================================ PY STUDIO -->
+<section id="py-studio">
+<h2>Python: loading Studio apps</h2>
+<p>Run a <code>.velo.json</code> from Python and extend it with code.</p>
+<pre><code>import velo
+
+app = velo.load("app.velo.json")        # a normal velo.App
+
+@app.action("send_email")               # usable by "Run Python hook" buttons & chat hooks
+def send_email(ctx):
+    ctx.toast(f"Sent to {ctx['email']}", "success")
+
+@app.page("/admin", title="Admin", icon="🔐")   # hand-written pages next to Studio pages
+def admin(ui):
+    ui.title("Admin")
+
+app.run()</code></pre>
+<table>
+<thead><tr><th>Function</th><th>Returns</th></tr></thead>
+<tbody>
+<tr><td><code>velo.load(path_or_dict)</code></td><td>A runnable app built from a spec</td></tr>
+<tr><td><code>velo.spec.validate(spec)</code></td><td>List of problems <code>{id, level, msg}</code></td></tr>
+<tr><td><code>velo.codegen.to_python(spec)</code></td><td>Equivalent Python source code</td></tr>
+<tr><td><code>velo.Context</code></td><td>The object hooks receive (<code>ctx</code>)</td></tr>
+</tbody></table>
+</section>
+
+<!-- ============================================================ RECIPES -->
+<section id="recipes">
+<h2>Recipes</h2>
+<h3>1 · Student result calculator (Studio)</h3>
+<ol class="steps">
+<li>Three <b>Number</b> inputs: <code>maths</code>, <code>science</code>, <code>english</code> (max 100).</li>
+<li>A <b>Metric</b> “Total” with value <code>=maths + science + english</code>.</li>
+<li>A <b>Metric</b> “Percentage” with value <code>{(maths + science + english) / 3:.1f}%</code>.</li>
+<li>A <b>Badge</b> with text <code>{'Pass' if (maths + science + english) / 3 &gt;= 50 else 'Fail'}</code>.</li>
+<li>An <b>Alert</b> (success) “Excellent work!” with <i>Show if</i> <code>(maths + science + english) / 3 &gt;= 80</code>.</li>
+</ol>
+<h3>2 · Collect entries and export CSV (Studio)</h3>
+<p>State <code>entries = []</code> · inputs <code>name</code>, <code>email</code> · button with <b>Add to list</b> <code>entries</code> ← <code>={'name': name, 'email': email}</code> then <b>Reset inputs</b> · a <b>Table</b> with data <code>=entries</code> · a <b>Download</b> with content <code>=entries</code>, filename <code>entries.csv</code>. Or just start from the <b>Form + table</b> template.</p>
+<h3>3 · CSV dashboard (Python)</h3>
+<pre><code>import velo
+from velo.helpers import csv, where, group, col
+
+app = velo.App("Sales", icon="📊", wide=True)
+
+@app.page("/")
+def home(ui):
+    with ui.sidebar:
+        f = ui.upload("Sales CSV", accept=".csv")
+    if not f:
+        ui.info("Upload a CSV with month, region and sales columns.")
+        return
+    rows = csv(f)
+    with ui.sidebar:
+        region = ui.multiselect("Region", sorted({r["region"] for r in rows}))
+    rows = where(rows, "region", region)
+    a, b = ui.columns(2)
+    a.metric("Total sales", f"{sum(col(rows, 'sales')):,}")
+    b.metric("Rows", len(rows))
+    ui.bar_chart(group(rows, "month", "sales"), x="month", y="sales")
+    ui.table(rows)
+
+app.run()</code></pre>
+<h3>4 · AI chatbot (Studio + hook)</h3>
+<p>Use the <b>Chatbot</b> template, set <i>Hooks file</i> to <code>hooks.py</code> and the chat's <i>hook</i> to <code>answer</code>:</p>
+<pre><code># hooks.py — works with any AI provider's Python library
+def answer(ctx, message):
+    history = ctx["chat"]                 # [{'role': 'user', 'content': ...}, ...]
+    return call_your_model(history)       # return the reply text</code></pre>
+<h3>5 · Multi-page app with navigation buttons (Python)</h3>
+<pre><code>@app.page("/", title="Form", icon="📝")
+def form(ui):
+    ui.input("Name", key="name")
+    ui.button("Continue →", on_click=lambda: ui.navigate("/summary"))
+
+@app.page("/summary", title="Summary", icon="✅")
+def summary(ui):
+    ui.title(f"Thanks, {ui.get('name') or 'friend'}!")</code></pre>
+</section>
+
+<!-- ============================================================ CLI -->
+<section id="cli">
+<h2>CLI reference</h2>
+<table>
+<thead><tr><th>Command</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>velo studio [file] [-t TEMPLATE] [--force] [--port N] [--host H] [--no-open]</code></td><td>Open the drag &amp; drop builder (default file <code>app.velo.json</code>, created if missing)</td></tr>
+<tr><td><code>velo run app.py</code> · <code>velo run app.velo.json</code></td><td>Run an app with hot reload</td></tr>
+<tr><td>&nbsp;&nbsp;<code>--port N --host H --open --prod --no-reload</code></td><td>Run options. <code>--prod</code>: 0.0.0.0, no reload, no tracebacks, gzip</td></tr>
+<tr><td><code>velo export [file.velo.json] [-o app.py] [--force]</code></td><td>Turn a Studio app into Python</td></tr>
+<tr><td><code>velo new NAME</code></td><td>Scaffold a starter project</td></tr>
+<tr><td><code>velo docker [app.py|app.velo.json] [--port N]</code></td><td>Write a Dockerfile (and vendor Velo)</td></tr>
+<tr><td><code>velo version</code></td><td>Print version and author</td></tr>
+<tr><td><code>python -m velo ...</code></td><td>Same commands, if <code>velo</code> isn't on PATH</td></tr>
+</tbody></table>
+<p>Environment variables: <code>PORT</code>, <code>VELO_HOST</code>, <code>VELO_ACCESS_LOG=1</code> (log requests).</p>
+</section>
+
+<!-- ============================================================ DEPLOY -->
+<section id="deploy">
+<h2>Deploy</h2>
+<h3>Any server or VPS</h3>
+<pre><code>pip install velo-ui
+velo run app.py --prod --port 8000          # or: velo run app.velo.json --prod</code></pre>
+<h3>Docker</h3>
+<pre><code>velo docker app.py                          # writes Dockerfile + .dockerignore
+docker build -t myapp .
+docker run -p 8000:8000 myapp</code></pre>
+<h3>Render, Railway, Fly.io, Koyeb, Cloud Run, Heroku</h3>
+<ol class="steps">
+<li>Put your app in a GitHub repo with a <code>requirements.txt</code> containing <code>velo-ui</code> (plus anything your hooks use).</li>
+<li>Start command: <code>velo run app.py --prod</code> (or <code>app.velo.json</code>). Velo reads <code>$PORT</code> automatically.</li>
+<li>Health check path: <code>/health</code>.</li>
+</ol>
+<div class="warn">⚠️ <b>Notes:</b> sessions live in memory, so run one process per app (or use sticky sessions). Uploads travel as base64 JSON, practical up to about 25 MB. Behind nginx, disable buffering for <code>/api/stream</code>.</div>
+<h3>Publishing these docs</h3>
+<p>This page is a single <code>docs/index.html</code>. On GitHub: <b>Settings → Pages → Deploy from a branch → <code>main</code> / <code>/docs</code></b>, and it goes live at <code>https://rafay183.github.io/velo/</code>. It also works on Netlify, Vercel, or any static host.</p>
+</section>
+
+<!-- ============================================================ FORMAT -->
+<section id="format">
+<h2>The .velo.json format</h2>
+<pre><code>{
+  "velo": 1,
+  "generator": "Velo Studio — by Muhammad Rafay Shaikh (Pakistan)",
+  "app":   {"title": "Registration", "icon": "📝", "accent": "#8b5cf6", "theme": "auto", "wide": false},
+  "state": {"entries": []},
+  "hooks": "hooks.py",
+  "pages": [{
+    "path": "/", "title": "Register", "icon": "📝",
+    "sidebar": [],
+    "body": [
+      {"id": "n1", "type": "input", "props": {"name": "email", "label": "Email"}},
+      {"id": "n2", "type": "button", "props": {"label": "Join", "actions": [
+        {"do": "append", "var": "entries", "value": "={'email': email}", "if": "'@' in email"}]}},
+      {"id": "n3", "type": "card", "props": {"title": "People"}, "show_if": "len(entries) &gt; 0",
+       "slots": [[{"id": "n4", "type": "table", "props": {"data": "=entries"}}]]}
+    ]
+  }]
+}</code></pre>
+<ul>
+<li><b>Nodes</b> have <code>id</code>, <code>type</code>, <code>props</code>, optional <code>show_if</code>, and for containers <code>slots</code> (a list of lists: one per column/tab).</li>
+<li><b>Actions</b> use <code>do</code>: <code>set toggle append clear reset toast navigate call</code>, plus fields <code>var value text kind to fn vars if</code>.</li>
+<li>Missing properties take their defaults, so hand-written specs can stay short.</li>
+</ul>
+</section>
+
+<!-- ============================================================ HOW -->
+<section id="how">
+<h2>How Velo works</h2>
+<ol>
+<li>The browser opens one live stream (Server-Sent Events) and sends small JSON events (<code>set</code>, <code>click</code>, <code>submit</code>).</li>
+<li>The server applies the event to that visitor's session, runs callbacks, then re-runs <b>only the page function</b>, producing a compact component tree.</li>
+<li>The browser <b>morphs</b> the page to match. Unchanged elements aren't touched, so focus, cursor, scroll, open tabs and table sorting survive.</li>
+<li>When you save a file, Velo re-executes it, swaps the new page functions into the running app and refreshes browsers. Sessions stay where they were.</li>
+<li>Studio apps are interpreted from the JSON at runtime by the same engine, so a Studio app and its exported Python behave the same.</li>
+</ol>
+<p>Customise the look with <code>App(accent=..., theme=..., wide=...)</code> or override CSS variables (<code>--accent</code>, <code>--r</code>, <code>--font</code>…) via <code>ui.html("&lt;style&gt;...&lt;/style&gt;")</code>.</p>
+</section>
+
+<!-- ============================================================ CHEAT SHEET -->
+<section id="cheatsheet">
+<h2>Cheat sheets</h2>
+<p>Print this section (<kbd>Ctrl</kbd>+<kbd>P</kbd>) for a handy reference.</p>
+<div class="cheat">
+<div class="card"><h4>🖥️ Terminal</h4><pre><code>pip install velo-ui        # install
+pip install -U velo-ui     # upgrade
+velo studio                # builder
+velo studio x.velo.json -t form
+velo run app.velo.json     # run Studio app
+velo run app.py --open     # run Python app
+velo export app.velo.json  # → app.py
+velo new myapp             # scaffold
+velo run app.py --prod     # production
+velo docker app.py         # Dockerfile
+velo version</code></pre></div>
+
+<div class="card"><h4>🧮 Studio formulas</h4><dl>
+<dt>Hello {name}</dt><dd>show a variable in text</dd>
+<dt>{price * qty:,.2f}</dt><dd>compute + format</dd>
+<dt>=count + 1</dt><dd>whole value computed</dd>
+<dt>='Yes' if agree else 'No'</dt><dd>condition</dd>
+<dt>=csv(file)</dt><dd>rows from upload</dd>
+<dt>=where(rows, 'city', city)</dt><dd>filter</dd>
+<dt>=group(rows, 'month', 'sales')</dt><dd>group &amp; sum</dd>
+<dt>=sum(col(rows, 'sales'))</dt><dd>column total</dd>
+<dt>=columns(rows)</dt><dd>column names</dd>
+<dt>=[r for r in rows if r['x'] &gt; 5]</dt><dd>comprehension</dd>
+<dt>len(entries) &gt; 0</dt><dd>Show if / Only if</dd></dl></div>
+
+<div class="card"><h4>⚡ Button actions</h4><dl>
+<dt>Set variable</dt><dd>count ← =count + 1</dd>
+<dt>Flip yes/no</dt><dd>show_help</dd>
+<dt>Add to list</dt><dd>entries ← ={'name': name}</dd>
+<dt>Clear variable</dt><dd>entries → []</dd>
+<dt>Reset inputs</dt><dd>name email (blank = all)</dd>
+<dt>Show message</dt><dd>Saved {name}! · success</dd>
+<dt>Go to page</dt><dd>/thanks</dd>
+<dt>Run Python hook</dt><dd>def fn(ctx): … in hooks.py</dd>
+<dt>Only if</dt><dd>any condition per action</dd></dl></div>
+
+<div class="card"><h4>🐍 Python basics</h4><pre><code>import velo
+app = velo.App("App", icon="⚡")
+
+@app.page("/", title="Home")
+def home(ui):
+    ui.title("Hi")
+    x = ui.input("Name")
+    if ui.button("Go"):
+        ui.toast(f"Hi {x}")
+
+app.run()</code></pre></div>
+
+<div class="card"><h4>🧩 Python inputs</h4><pre><code>ui.input  ui.textarea  ui.number
+ui.slider(l, min, max, value)
+ui.select(l, opts)  ui.radio(l, opts)
+ui.multiselect(l, opts)
+ui.checkbox  ui.toggle  ui.date
+ui.color  ui.upload(l, accept=".csv")
+ui.button(l, on_click=fn, args=())
+ui.download(l, data, "file.csv")</code></pre></div>
+
+<div class="card"><h4>📐 Python layout &amp; data</h4><pre><code>a, b = ui.columns(2)   # [2, 1]
+with ui.card("T"): ...
+t1, t2 = ui.tabs(["A", "B"])
+with ui.expander("More"): ...
+with ui.sidebar: ...
+with ui.row(): ...
+ui.table(rows)  ui.metric(l, v, d)
+ui.line_chart(rows, x=, y=)
+ui.bar_chart  ui.area_chart
+ui.pie_chart  ui.chart(kind=)</code></pre></div>
+
+<div class="card"><h4>🧠 Python state</h4><pre><code>ui.init(count=0, items=[])
+ui.state.count += 1
+ui.state["items"]          # dict-name keys
+ui.get("key"); ui.set("key", v)
+ui.reset("key")            # or ui.reset()
+ui.navigate("/p"); ui.rerun()
+@velo.cache(ttl=60)
+ui.autorefresh(5); app.push()</code></pre></div>
+
+<div class="card"><h4>💬 Text &amp; feedback</h4><pre><code>ui.title(t, sub)  ui.header  ui.subheader
+ui.text  ui.caption  ui.markdown
+ui.code(src, lang)  ui.json(obj)
+ui.badge(t, kind)  ui.link(t, url)
+ui.image(src)  ui.divider()  ui.space()
+ui.info  ui.success  ui.warning  ui.error
+ui.progress(0.5)  ui.toast(t, kind)
+ui.chat_message(role, t)
+ui.chat_input("Ask…")</code></pre></div>
+
+<div class="card"><h4>⌨️ Studio keys</h4><dl>
+<dt>Del</dt><dd>delete</dd><dt>Ctrl D</dt><dd>duplicate</dd>
+<dt>Ctrl Z / Ctrl Shift Z</dt><dd>undo / redo</dd>
+<dt>Alt ↑ ↓</dt><dd>move</dd><dt>Ctrl S</dt><dd>save</dd>
+<dt>/</dt><dd>search components</dd>
+<dt>1 2 3 4</dt><dd>Design · Split · Preview · Code</dd>
+<dt>Esc</dt><dd>deselect</dd></dl></div>
+</div>
+</section>
+
+<!-- ============================================================ FAQ -->
+<section id="faq">
+<h2>Troubleshooting &amp; FAQ</h2>
+<h4>“velo” is not recognized / command not found</h4>
+<p>Activate your virtual environment (<code>.venv\Scripts\activate</code> on Windows), or use <code>python -m velo studio</code>. On Windows, re-install Python with “Add to PATH” ticked.</p>
+<h4>“invalid choice: 'studio'”</h4>
+<p>You have an old version. Run <code>pip install -U velo-ui</code> and check <code>velo version</code>. If it still shows the old version, run <code>pip uninstall velo-ui</code> and install again; an old <code>pip install -e .</code> may be shadowing it.</p>
+<h4>Port already in use</h4>
+<p>Use another port: <code>velo studio --port 7000</code> or <code>velo run app.py --port 8080</code>.</p>
+<h4>The Studio preview panel is blank</h4>
+<p>The preview runs on Studio's port + 1 (7861). Allow it in your firewall. In cloud editors that forward only one port, use <b>Design</b> view and test with <code>velo run</code>.</p>
+<h4>A formula shows ⚠</h4>
+<p>Hover the red badge or open <b>⛔ problems</b>. Common causes: a misspelled variable, a missing quote (<code>'text'</code>), or <code>=</code> forgotten in front of a computed value.</p>
+<h4>My state variable resets</h4>
+<p>State is per visitor and lives in server memory. Restarting the server clears it. Save important data to a file or database from a Python hook.</p>
+<h4>Git or OneDrive trouble on Windows</h4>
+<p>Keep project folders (especially git repos) outside OneDrive, e.g. <code>C:\code\myapp</code>. Syncing can corrupt <code>.git</code> files.</p>
+<h4>Can I use Velo commercially?</h4>
+<p>Yes. Velo is MIT licensed.</p>
+<h4>Is Velo a Streamlit or Gradio replacement?</h4>
+<p>It fills the same role (Python data and AI apps) with zero dependencies, a built-in visual builder, multi-page navigation, client-side tabs, and DOM morphing that keeps focus and scroll.</p>
+</section>
+
+<!-- ============================================================ CONTRIB -->
+<section id="contributing">
+<h2>Contributing</h2>
+<pre><code>git clone https://github.com/rafay183/velo.git
+cd velo
+python -m venv .venv &amp;&amp; .venv\Scripts\activate      # macOS/Linux: source .venv/bin/activate
+pip install -e .
+python tests/test_velo.py &amp;&amp; python tests/test_studio.py</code></pre>
+<table>
+<thead><tr><th>File</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><code>velo/core.py</code></td><td>App, sessions and every <code>ui.*</code> component</td></tr>
+<tr><td><code>velo/server.py</code></td><td>HTTP server, live stream, hot reload</td></tr>
+<tr><td><code>velo/spec.py</code></td><td>Studio component catalog, formula sandbox, <code>.velo.json</code> interpreter, validator</td></tr>
+<tr><td><code>velo/codegen.py</code></td><td>Studio app → Python exporter</td></tr>
+<tr><td><code>velo/studio.py</code> · <code>velo/static/studio.*</code></td><td>Studio server and UI (vanilla JS, no build step)</td></tr>
+<tr><td><code>velo/static/app.js</code> · <code>app.css</code></td><td>Browser renderer and theme</td></tr>
+</tbody></table>
+<p>Workflow: open an issue → branch → change + test → pull request. Releases: bump the version in <code>pyproject.toml</code> and <code>velo/__init__.py</code>, update <code>CHANGELOG.md</code>, merge, then publish a GitHub Release tagged <code>v0.x.y</code>. GitHub Actions uploads it to PyPI.</p>
+</section>
+
+<!-- ============================================================ AUTHOR -->
+<section id="author">
+<h2>About the author</h2>
+<div class="card author">
+  <div class="avatar">MR</div>
+  <div>
+    <b style="font-size:18px">Muhammad Rafay Shaikh</b>
+    <p style="margin:2px 0 6px">Creator and maintainer of Velo &amp; Velo Studio · Pakistan 🇵🇰</p>
+    <p style="margin:0"><a href="https://github.com/rafay183" target="_blank" rel="noopener">github.com/rafay183</a> · <a href="https://github.com/rafay183/velo" target="_blank" rel="noopener">github.com/rafay183/velo</a> · <a href="https://pypi.org/project/velo-ui/" target="_blank" rel="noopener">pypi.org/project/velo-ui</a></p>
+  </div>
+</div>
+<p>Every app built with Velo carries a small credit: <i>“Built with Velo”</i> in the sidebar, plus the author's name in the page's metadata. Velo is free and open source under the MIT license. Contributions, stars and feedback are welcome.</p>
+</section>
+</main>
+</div>
+
+<footer>
+  <b>Velo</b> · Python web apps by drag &amp; drop or code · MIT License<br>
+  Created by <b>Muhammad Rafay Shaikh</b> · Pakistan 🇵🇰 · © 2026
+  <span class="np"> · <a href="https://github.com/rafay183/velo">GitHub</a> · <a href="https://pypi.org/project/velo-ui/">PyPI</a></span>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(s, el){ return (el || document).querySelector(s); };
+  var $$ = function(s, el){ return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+  var esc = function(s){ return s.replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }); };
+
+  // syntax highlighting (Python-ish / shell) + copy buttons
+  var KW = /^(def|return|if|else|elif|for|in|not|and|or|with|import|from|as|True|False|None|lambda|is|pass|class|while|try|except|async|await)$/;
+  $$("pre code").forEach(function(c){
+    var src = c.textContent, out = "", m;
+    var re = /(#[^\n]*)|("""[\s\S]*?"""|f?"(?:\\.|[^"\\\n])*"|f?'(?:\\.|[^'\\\n])*')|(@[\w.]+)|(\b\d[\d_.]*\b)|([A-Za-z_]\w*)(?=\()|([A-Za-z_]\w*)|([\s\S])/g;
+    while ((m = re.exec(src))) {
+      if (m[1]) out += '<span class="c">' + esc(m[1]) + "</span>";
+      else if (m[2]) out += '<span class="s">' + esc(m[2]) + "</span>";
+      else if (m[3]) out += '<span class="d">' + esc(m[3]) + "</span>";
+      else if (m[4]) out += '<span class="n">' + esc(m[4]) + "</span>";
+      else if (m[5]) out += KW.test(m[5]) ? '<span class="k">' + m[5] + "</span>" : '<span class="f">' + m[5] + "</span>";
+      else if (m[6]) out += KW.test(m[6]) ? '<span class="k">' + m[6] + "</span>" : m[6];
+      else out += esc(m[7]);
+    }
+    c.innerHTML = out;
+    var b = document.createElement("button"); b.className = "copy"; b.textContent = "Copy";
+    b.onclick = function(){ navigator.clipboard && navigator.clipboard.writeText(src).then(function(){ b.textContent = "Copied ✓"; setTimeout(function(){ b.textContent = "Copy"; }, 1400); }); };
+    c.parentNode.appendChild(b);
+  });
+
+  // theme
+  $("#theme").onclick = function(){
+    var t = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = t;
+    try { localStorage.setItem("velo-docs:theme", t); } catch (e) {}
+  };
+
+  // mobile menu
+  var side = $("#side");
+  $("#burger").onclick = function(){ side.classList.toggle("open"); };
+  $$("nav.side a").forEach(function(a){ a.addEventListener("click", function(){ side.classList.remove("open"); }); });
+
+  // scroll spy
+  var links = $$("nav.side a"), secs = $$("main section");
+  function spy(){
+    var y = window.scrollY + 90, cur = secs[0];
+    secs.forEach(function(s){ if (!s.classList.contains("hidden") && s.offsetTop <= y) cur = s; });
+    links.forEach(function(a){ a.classList.toggle("on", a.getAttribute("href") === "#" + cur.id); });
+  }
+  window.addEventListener("scroll", spy, { passive: true }); spy();
+
+  // search: filters sections + nav
+  var q = $("#q");
+  var plain = secs.map(function(s){ return s.textContent.toLowerCase(); });
+  q.addEventListener("input", function(){
+    var v = q.value.trim().toLowerCase(), any = false;
+    secs.forEach(function(s, i){
+      var hit = !v || plain[i].indexOf(v) >= 0;
+      s.classList.toggle("hidden", !hit); any = any || hit;
+      var a = $('nav.side a[href="#' + s.id + '"]'); if (a) a.classList.toggle("hide", !hit);
+    });
+    $("#nores").style.display = any ? "none" : "block";
+    $$("nav.side h4").forEach(function(h){
+      var n = h.nextElementSibling, vis = false;
+      while (n && n.tagName === "A") { if (!n.classList.contains("hide")) vis = true; n = n.nextElementSibling; }
+      h.style.display = vis ? "" : "none";
+    });
+    if (v) window.scrollTo(0, 0);
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "/" && document.activeElement !== q) { e.preventDefault(); q.focus(); }
+    if (e.key === "Escape" && document.activeElement === q) { q.value = ""; q.dispatchEvent(new Event("input")); q.blur(); }
+  });
+})();
+</script>
+</body>
+</html>

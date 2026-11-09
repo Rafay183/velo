@@ -14,7 +14,11 @@ Python:
 
     app.run()
 """
-__version__ = "0.2.0"
+__version__ = "0.2.1"
+__author__ = "Muhammad Rafay Shaikh"
+__country__ = "Pakistan"
+__homepage__ = "https://github.com/rafay183/velo"
+CREDIT = f"Velo by {__author__} ({__country__})"
 
 from .core import App, UI, State, UploadedFile, Rerun, cache  # noqa: E402
 from .spec import load, Context  # noqa: E402
