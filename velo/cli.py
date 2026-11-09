@@ -9,6 +9,14 @@ import sys
 
 from . import __version__
 
+
+def _rel(path: str) -> str:
+    """os.path.relpath that never fails (Windows raises across drives, e.g. C: vs D:)."""
+    try:
+        return os.path.relpath(path)
+    except ValueError:
+        return path
+
 TEMPLATE = '''import velo
 
 app = velo.App("{name}", icon="⚡", accent="#6366f1")
@@ -106,7 +114,7 @@ def cmd_export(a):
         raise SystemExit(f"velo export: {out} exists — add --force to overwrite")
     with open(out, "w", encoding="utf-8") as f:
         f.write(code)
-    print(f"\n  ✓ Wrote {out}\n\n  python {os.path.relpath(out)}\n")
+    print(f"\n  ✓ Wrote {out}\n\n  python {_rel(out)}\n")
 
 
 def cmd_docker(a):
@@ -126,6 +134,8 @@ def cmd_docker(a):
 
 
 def main(argv=None):
+    from . import _safe_console
+    _safe_console()
     ap = argparse.ArgumentParser(prog="velo", description="Velo — reactive Python web apps, zero dependencies. "
                                  "No code? Run: velo studio")
     sub = ap.add_subparsers(dest="cmd")

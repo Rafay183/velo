@@ -260,6 +260,8 @@ class Reloader(threading.Thread):
 
 
 def serve(app: "core.App", host=None, port=None, *, reload=None, prod=None, open_browser=False, main_file=None):
+    from . import _safe_console
+    _safe_console()
     global RUNNING
     prod = bool(prod) if prod is not None else os.environ.get("VELO_PROD", "") not in ("", "0", "false")
     app.prod = prod

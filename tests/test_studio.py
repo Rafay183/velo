@@ -230,6 +230,7 @@ def test_studio_http_api():
 
 
 if __name__ == "__main__":
+    velo._safe_console()
     t0 = time.time()
     fns = [v for k, v in dict(globals()).items() if k.startswith("test_")]
     for fn in fns:

@@ -20,3 +20,15 @@ from .core import App, UI, State, UploadedFile, Rerun, cache  # noqa: E402
 from .spec import load, Context  # noqa: E402
 
 __all__ = ["App", "UI", "State", "UploadedFile", "Rerun", "cache", "load", "Context", "__version__"]
+
+
+def _safe_console():
+    """Never crash on a console that can't show ✓ ⚡ 🎨 (older Windows code pages, CI pipes)."""
+    import sys
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            enc = (getattr(stream, "encoding", "") or "").lower()
+            if stream is not None and "utf" not in enc:
+                stream.reconfigure(errors="replace")
+        except Exception:
+            pass

@@ -28,6 +28,14 @@ from . import __version__, codegen, core, server
 from . import spec as S
 from . import templates as T
 
+
+def _rel(path: str) -> str:
+    """os.path.relpath that never fails (Windows raises across drives, e.g. C: vs D:)."""
+    try:
+        return os.path.relpath(path)
+    except ValueError:
+        return path
+
 _STATIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 MAX_BODY = 20 * 1024 * 1024
 
@@ -221,6 +229,8 @@ def _bind(handler, host, port, explicit):
 
 def run_studio(path: str = "app.velo.json", host: str | None = None, port: int | None = None, *,
                open_browser: bool = False, template: str | None = None):
+    from . import _safe_console
+    _safe_console()
     host = host or os.environ.get("VELO_HOST") or "127.0.0.1"
     explicit = port is not None
     port = int(port or 7860)
@@ -241,10 +251,10 @@ def run_studio(path: str = "app.velo.json", host: str | None = None, port: int |
 
     shown = "localhost" if host in ("127.0.0.1", "0.0.0.0") else host
     url = f"http://{shown}:{port}"
-    print(f"\n  \033[1m🎨 Velo Studio {__version__}\033[0m  ·  editing {os.path.relpath(project.path)}\n"
+    print(f"\n  \033[1m🎨 Velo Studio {__version__}\033[0m  ·  editing {_rel(project.path)}\n"
           f"  → Studio   \033[36m{url}\033[0m\n"
           f"  → Preview  \033[36mhttp://{shown}:{pport}\033[0m\n"
-          f"  Run it later with:  velo run {os.path.relpath(project.path)}     (Ctrl+C to stop)\n")
+          f"  Run it later with:  velo run {_rel(project.path)}     (Ctrl+C to stop)\n")
     if open_browser:
         threading.Timer(0.6, lambda: webbrowser.open(url)).start()
     try:
